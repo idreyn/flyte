@@ -1,4 +1,4 @@
-package game
+package org.flyte.game
 {
 	public class All
 	{

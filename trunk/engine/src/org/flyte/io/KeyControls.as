@@ -1,4 +1,4 @@
-﻿package flyte.io{
+﻿package org.flyte.io{
 	import flash.ui.Keyboard
 	public class KeyControls{
 		public static var RIGHT:uint=Keyboard.RIGHT

@@ -1,9 +1,8 @@
-﻿package flyte.world{
-	import flyte.base.*;
-	import flyte.collision.*;
-	import flyte.events.GameEvent;
+﻿package org.flyte.world{
+	import org.flyte.base.*;
+	import org.flyte.collision.*;
 	public class Surface extends Standable{
-		public var rebound=0;
+		public var rebound:Number=0;
 		protected var touching:Array;
 		protected var type:String=CollisionType.GENERAL;
 		public static var surfaces:Array=new Array();

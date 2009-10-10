@@ -1,13 +1,12 @@
-﻿package flyte.display{
-	import flyte.events.GameEvent;
-	import flyte.base.Game;
-	import flyte.base.GameMovieClip;
-	import flyte.world.ScrollWorld
-	import flash.utils.Timer
-	import flash.events.TimerEvent
+﻿package org.flyte.display{
+	import flash.utils.Timer;
+	
+	import org.flyte.base.GameMovieClip;
+	import org.flyte.events.GameEvent;
+	import org.flyte.world.ScrollWorld;
 	public class GameCamera extends GameMovieClip {
-		public static var CAMERA_OFFSET_X=200;
-		public static var CAMERA_OFFSET_Y=200;
+		public static var CAMERA_OFFSET_X:Number=200;
+		public static var CAMERA_OFFSET_Y:Number=200;
 		private var _target:GameMovieClip;
 		private var _waitTimer:Timer;
 		private var _tweenWait:uint

@@ -1,6 +1,6 @@
-﻿package flyte.enemy{
-	import flyte.base.SelfControlledGameObject
-	import flyte.game.FactionManager
+﻿package org.flyte.enemy{
+	import org.flyte.base.SelfControlledGameObject
+	import org.flyte.game.FactionManager
 	public class AbstractEnemy extends SelfControlledGameObject{
 		/*AbstractEnemy is really just a way of being sure that a SelfControlledGameObject is indeed trying to
 		hurt your beloved Character. (I don't know what else it would be, given the black-and-white,

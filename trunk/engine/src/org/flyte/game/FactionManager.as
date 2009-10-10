@@ -1,4 +1,4 @@
-﻿package flyte.game{
+﻿package org.flyte.game{
 	public dynamic class FactionManager{
 		/*The whole point of the FactionManager class is to make sure good guys only attack bad guys and vice-versa.
 		Each GameObject has a faction property, and depending on what that is set to, GameObjects won't be able to

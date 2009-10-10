@@ -1,4 +1,4 @@
-﻿package flyte.utils{
+﻿package org.flyte.utils{
 	public class RandomUtil{
 		public static function randomInt(min:int,max:int):int{
 			return Math.round(Math.random()*max)+min

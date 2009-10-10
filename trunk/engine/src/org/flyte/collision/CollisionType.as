@@ -1,4 +1,4 @@
-﻿package flyte.collision{
+﻿package org.flyte.collision{
 	/**
 	 * The CollisionType class just holds a bunch of constants denoting different
 	 * types of collisions that can occur with Sensors objects.
@@ -40,14 +40,14 @@
 		 * Denotes a collision with the sensor extending behind and below a GameMovieClip
 		 * that checks for ledges.
 		 * @see Sensors
-		 * @see flyte.base.GameMovieClip
+		 * @see org.flyte.base.GameMovieClip
 		 */
 		public static const LEFT_EDGE:String="collisionLeftEdge";
 		/**
 		 * Denotes a collision with the sensor extending in front of and below a GameMovieClip
 		 * that checks for ledges.
 		 * @see Sensors
-		 * @see flyte.base.GameMovieClip
+		 * @see org.flyte.base.GameMovieClip
 		 */
 		public static const RIGHT_EDGE:String="collisionRightEdge";
 	}

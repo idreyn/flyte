@@ -211,7 +211,7 @@ function AC_GetArgs(args, ext, srcParamName, classid, mimeType){
   ret.embedAttrs = new Object();
   ret.params = new Object();
   ret.objAttrs = new Object();
-  for (var i=0; i < args.length; i=i+2){
+  for(var i:uint=0; i < args.length; i=i+2){
     var currArg = args[i].toLowerCase();    
 
     switch (currArg){	

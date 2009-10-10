@@ -1,4 +1,4 @@
-﻿package flyte.collision{
+﻿package org.flyte.collision{
 	import flash.display.BitmapData;
 	import flash.display.BlendMode;
 	import flash.display.DisplayObject;

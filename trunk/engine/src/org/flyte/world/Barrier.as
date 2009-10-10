@@ -1,12 +1,12 @@
-﻿package flyte.world{
-	import flyte.collision.*
-	import flyte.events.*
-	import flyte.base.*
-	import flyte.objective.*
-	import flyte.item.*
-	import flyte.character.*
-	import flyte.world.*
-	import flyte.display.*
+﻿package org.flyte.world{
+	import org.flyte.collision.*
+	import org.flyte.events.*
+	import org.flyte.base.*
+	import org.flyte.objective.*
+	import org.flyte.item.*
+	import org.flyte.character.*
+	import org.flyte.world.*
+	import org.flyte.display.*
 	public class Barrier extends Terrain implements IActivateTargetable{
 		public function Barrier(){
 			resettable=false

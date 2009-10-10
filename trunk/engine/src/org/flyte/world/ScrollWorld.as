@@ -1,30 +1,29 @@
-﻿package flyte.world{
-	//I like how these import statements make a pyramaid, don't you?
-	//The cool thing is that I didn't do that on purpose.
-	import fl.transitions.easing.*;
+﻿package org.flyte.world{
+
+	
 	
 	import flash.display.*;
 	import flash.events.MouseEvent;
 	import flash.events.ProgressEvent;
 	import flash.geom.Rectangle;
 	
-	import flyte.base.*;
-	import flyte.character.*;
-	import flyte.display.*;
-	import flyte.events.*;
-	import flyte.io.*;
-	import flyte.projectile.*;
+	import org.flyte.base.*;
+	import org.flyte.character.*;
+	import org.flyte.display.*;
+	import org.flyte.events.*;
+	import org.flyte.io.*;
+	import org.flyte.projectile.*;
 	/**
 	 * The ScrollWorld class contains an entire level of a game. To create one, you'll need to make a Movieclip
-	 * symbol and have it subclass flyte.world.ScrollWorld. Then you can add your own Collectibles, Terrain, Platforms, Enemies
+	 * symbol and have it subclass org.flyte.world.ScrollWorld. Then you can add your own Collectibles, Terrain, Platforms, Enemies
 	 * and other good stuff to create your level. Then you'll need to add a playable character. Give it the instance
 	 * name "character". Then you're free to add powerups, enemies, goals, whatever. They'll all interact nicely.
 	 * @author Ian Reynolds
 	 *
-	 * @see flyte.enemy.Enemy
-	 * @see flyte.world.Platform
-	 * @see flyte.world.Terrain
-	 * @see flyte.item.Collectible
+	 * @see org.flyte.enemy.Enemy
+	 * @see org.flyte.world.Platform
+	 * @see org.flyte.world.Terrain
+	 * @see org.flyte.item.Collectible
 	 */
 	public class ScrollWorld extends GameMovieClip {
 		/* These variables are all public because in addition to subclassing ScrollWorld to modify it, you'll be
@@ -70,17 +69,17 @@
 		/**
 		 * A reference to the character on the stage in flash that has the instance name "character".
 		 * This character is normally accessed with Character.current.
-		 * @see flyte.character.Character
+		 * @see org.flyte.character.Character
 		 */
 		public var character:Character;
 		/**
 		 * A KeyListener object that listens for keypresses for the game.
-		 * @see flyte.io.KeyListener
+		 * @see org.flyte.io.KeyListener
 		 */
 		public var key:KeyListener;
 		/**
 		 * The GameCamera object that keeps the focus on a specific object, usually character.
-		 * @see flyte.display.GameCamera
+		 * @see org.flyte.display.GameCamera
 		 */
 		public var camera:GameCamera;
 		/**
@@ -118,7 +117,7 @@
 			if (g is GameMovieClip) {
 				GameMovieClip(g).myWorld=this;
 			}
-			for (var i=0; i<g.numChildren; i++) {
+			for(var i:uint=0; i<g.numChildren; i++) {
 				if (g.getChildAt(i) is MovieClip) {
 					setWorldOfAllChildMovieClips(g.getChildAt(i));
 				}
@@ -151,7 +150,6 @@
 			dispatchEvent(new GameEvent(GameEvent.RESET_LEVEL));
 		}
 		private function onLoadWorld(e:GameEvent):void {
-			trace("onLoadWorld")
 			Game._root.addEventListener(GameEvent.LOOP,onLoopE);
 			Character.current=this.character;
 			GameObject.setEnum(this);
@@ -163,9 +161,9 @@
 		}
 		protected function keyDown(e:GameEvent):void {
 				if(e.params.key == 192){
-				reset();
-				trace("resetting");
+					Game._root.pause();
 				}
+
 		}
 		private function onMouseDown(e:MouseEvent):void {
 			mouseDown=true;

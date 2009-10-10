@@ -1,10 +1,9 @@
-﻿package flyte.world{
-	import flyte.events.*;
-	import flyte.collision.*;
-	import flyte.world.*;
-	import flyte.base.*;
+﻿package org.flyte.world{
+	import org.flyte.base.*;
+	import org.flyte.collision.*;
+	import org.flyte.events.*;
 	public class RightWall extends Surface{
-		public function Floor() {
+		public function RightWall() {
 			type=CollisionType.LEFT
 			addLoopListener(onLoop)
 		}
@@ -12,8 +11,8 @@
 			checkCollisions();
 		}
 		private function checkCollisions():void {
-			for (var i=0; i<GameObject.enum.length; i++) {
-				var t=GameObject.enum[i];
+			for (var i:uint=0; i<GameObject.enum.length; i++) {
+				var t:GameObject=GameObject.enum[i];
 				if (Collision.hitTestShape(this,t.sensors.left)) {
 					if (! touching[i]) {
 						touching[i]=true;

@@ -1,11 +1,11 @@
-﻿package flyte.projectile{
-	import flyte.projectile.*;
-	import flyte.base.*;
-	import flyte.events.*;
-	import flyte.collision.*;
-	import flyte.display.*
+﻿package org.flyte.projectile{
+	import org.flyte.projectile.*;
+	import org.flyte.base.*;
+	import org.flyte.events.*;
+	import org.flyte.collision.*;
+	import org.flyte.display.*
 	import flash.geom.*
-	import flyte.utils.*
+	import org.flyte.utils.*
 	import flash.display.*
 	public class Projectile extends GameMovieClip {
 		public static var FRIENDLY_FIRE:Boolean=false
@@ -35,8 +35,8 @@
 				}
 			} else {
 
-				for (var i=0; i<Standable.enum.length; i++) {
-					var t=Standable.enum[i];
+				for(var i:uint=0; i<Standable.enum.length; i++) {
+					var t:GameMovieClip=Standable.enum[i];
 					if (Collision.hitTestShape(this,t)) {
 						bounces++;
 						bounceObject=t

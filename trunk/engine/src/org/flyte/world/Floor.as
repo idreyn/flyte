@@ -1,9 +1,9 @@
-﻿package flyte.world
+﻿package org.flyte.world
 {
-	import flyte.base.*;
-	import flyte.events.*;
-	import flyte.world.*;
-	import flyte.collision.*;
+	import org.flyte.base.*;
+	import org.flyte.events.*;
+	import org.flyte.world.*;
+	import org.flyte.collision.*;
 	public class Floor extends Surface
 	{
 		public var jumpHeight:Number;
@@ -28,16 +28,16 @@
 		}
 		public function clear():void
 		{
-			for (var i=0; i<GameObject.enum[i]; i++)
+			for(var i:uint=0; i<GameObject.enum[i]; i++)
 			{
 				touching[i]=false;
 			}
 		}
 		private function checkCollisions():void
 		{
-			for (var i=0; i<GameObject.enum.length; i++)
+			for(var i:uint=0; i<GameObject.enum.length; i++)
 			{
-				var t=GameObject.enum[i];
+				var t:GameObject=GameObject.enum[i];
 				if (Collision.hitTestShape(this,t.sensors.bottom))
 				{
 					placeObject(t);

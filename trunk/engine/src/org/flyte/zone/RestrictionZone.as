@@ -1,6 +1,6 @@
-﻿package flyte.zone
+﻿package org.flyte.zone
 {
-	import flyte.zone.*
+	import org.flyte.zone.*
 	
 	public class RestrictionZone extends Zone
 	{

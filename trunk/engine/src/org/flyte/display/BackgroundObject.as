@@ -1,9 +1,8 @@
-﻿package flyte.display{
+﻿package org.flyte.display{
 	import flash.display.*;
 	import flash.events.*;
-	
-	import flyte.base.*;
-	import flyte.events.*;
+	import org.flyte.base.*;
+	import org.flyte.events.*;
 	public class BackgroundObject extends MovieClip {
 		private var _level:uint;
 		private var _originX:Number;

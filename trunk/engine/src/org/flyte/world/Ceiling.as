@@ -1,8 +1,7 @@
-﻿package flyte.world{
-	import flyte.base.*;
-	import flyte.events.*;
-	import flyte.world.*;
-	import flyte.collision.*;
+﻿package org.flyte.world{
+	import org.flyte.base.*;
+	import org.flyte.collision.*;
+	import org.flyte.events.*;
 	public class Ceiling extends Surface {
 		public function Ceiling() {
 			type=CollisionType.TOP;
@@ -12,9 +11,9 @@
 			checkCollisions();
 		}
 		public function checkCollisions():void {
-			for (var i=0; i<GameObject.enum.length; i++) {
+			for (var i:uint=0; i<GameObject.enum.length; i++) {
 				//trace(touching[i])
-				var t=GameObject.enum[i];
+				var t:GameObject=GameObject.enum[i];
 				if (Collision.hitTestShape(this,t.sensors.top)) {
 					if (! touching[i] && t.collisions.bottom ==0) {
 						touching[i]=true;

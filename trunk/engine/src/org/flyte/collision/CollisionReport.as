@@ -1,5 +1,5 @@
-﻿package flyte.collision{
-	import flyte.collision.CollisionType
+﻿package org.flyte.collision{
+	import org.flyte.collision.CollisionType
 	import flash.utils.Dictionary
 	/**
 	 * A CollisionReport simply contains a Dictionary with indexes at several values of CollisionType.

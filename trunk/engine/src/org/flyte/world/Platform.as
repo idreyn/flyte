@@ -1,10 +1,10 @@
-﻿package flyte.world{
+﻿package org.flyte.world{
 	import flash.geom.*;
-	import flyte.collision.*;
-	import flyte.base.*;
-	import flyte.world.*;
-	import flyte.events.*;
-	import flyte.motion.*
+	import org.flyte.collision.*;
+	import org.flyte.base.*;
+	import org.flyte.world.*;
+	import org.flyte.events.*;
+	import org.flyte.motion.*
 	public class Platform extends MotionTargetedGMC{
 		public var ceiling:Ceiling;
 		public var floor:Floor;
@@ -75,7 +75,7 @@
 			velocityY=this.y-lastY;
 			lastX=this.x;
 			lastY=this.y;
-			for (var i=0; i<GameObject.enum.length; i++) {
+			for(var i:uint=0; i<GameObject.enum.length; i++) {
 				if (gameObjectsOnMe[i]) {
 					GameObject.enum[i].x+=this.velocityX;
 					GameObject.enum[i].y+=this.velocityY;

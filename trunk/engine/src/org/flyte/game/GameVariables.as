@@ -1,6 +1,6 @@
-﻿package flyte.game{
-	import flyte.character.*;
-	import flyte.world.*;
+﻿package org.flyte.game{
+	import org.flyte.character.*;
+	import org.flyte.world.*;
 	public dynamic class GameVariables {
 		public static var level:uint;
 		public static var coins:uint;

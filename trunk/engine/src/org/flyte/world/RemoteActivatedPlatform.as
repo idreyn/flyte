@@ -1,9 +1,9 @@
-﻿package flyte.world
+﻿package org.flyte.world
 {
-	import flyte.base.*
-	import flyte.events.*
-	import flyte.objective.*
-	import flyte.world.*
+	import org.flyte.base.*
+	import org.flyte.events.*
+	import org.flyte.objective.*
+	import org.flyte.world.*
 	public class RemoteActivatedPlatform extends ActivatablePlatform implements IActivateTargetable
 	{
 		public var deactivateOnReset:Boolean=false

@@ -1,27 +1,28 @@
-﻿package flyte.base
+﻿package org.flyte.base
 {
 	import flash.display.*;
-	import flyte.character.*;
-	import flyte.collision.*;
-	import flyte.display.*;
-	import flyte.events.*;
-	import flyte.game.*;
-	import flyte.objective.*;
-	import flyte.utils.*;
-	import flyte.world.ScrollWorld;
+	
+	import org.flyte.character.*;
+	import org.flyte.collision.*;
+	import org.flyte.display.*;
+	import org.flyte.events.*;
+	import org.flyte.game.*;
+	import org.flyte.objective.*;
+	import org.flyte.utils.*;
+	import org.flyte.world.ScrollWorld;
 	/**
 	 * The GameObject class represents any GameMovieClip that is subject to collisions and gravity.
 	 * Unless you plan on deviating from the classic elements of platformer gameplay (enemies, collectibles, hazards, etc),
 	 * there should be very little need to call GameObject directly.
 	 * @author Ian Reynolds
-	 * @see flyte.base.GameMovieClip
+	 * @see org.flyte.base.GameMovieClip
 	 */
 	public dynamic class GameObject extends GameMovieClip
 	{
 		/**
 		 *The miniumum jump height for GameObjects.
 		 */
-		public static const MIN_JUMP_HEIGHT=15;
+		public static const MIN_JUMP_HEIGHT:Number=15;
 		/**
 		 *Whether or not the GameObject is attacking. 
 		 */
@@ -73,7 +74,7 @@
 		public var falling:Boolean=true;
 		/**
 		 * The sensors object for the GameObject that senses collisions.
-		 * @see flyte.collision.Sensors
+		 * @see org.flyte.collision.Sensors
 		 */
 		public var sensors:Sensors;
 		/**
@@ -105,13 +106,21 @@
 		 * Whether or not the GameObject is destroyable.
 		 */
 		public var destroyable:Boolean=true;
+		/**
+		 * Whether the GameObject will move on the x-axis.
+		 */
+		public var moves:Boolean=true;
+		/**
+		 * Whether the GameObject has just been hurt.
+		 */
+		public var hurting:Boolean=false;
 		protected var collisions:Object;
 		protected var jump:Number=0;
 		protected var lastX:Number=0;
 		protected var lastY:Number=0;
 		protected var originLives:uint=lives;
 		protected var possibleAttacks:Array;
-		protected var originalScaleX;
+		protected var originalScaleX:Number;
 		protected var lastSafeX:Number;
 		protected var lastSafeY:Number;
 		protected var wasOnGround:Boolean;
@@ -120,6 +129,8 @@
 		protected var dying:Boolean=false;
 		protected var healthBar:HealthBar;
 		protected var friction:uint=0;
+		private var hasAttackTarget:Boolean=false;
+		private var attackElapsed:uint=0;
 		private var invalidateAnimation:Boolean=false;
 		private var invalidateRunning:Boolean=false;
 		private var hbOriginX:Number;
@@ -128,6 +139,7 @@
 		private var flashElapsed:uint
 		private var flashUpdate:uint
 		private var tryDoDie:Boolean=false;
+		private var pushVelocity:Number=0;
 		public static var enum:Array=new Array();
 		private static var tEnum:Array=new Array();
 		public function GameObject()
@@ -184,9 +196,9 @@
 		protected function getPossibleAttacks():void
 		{
 			possibleAttacks=new Array();
-			for (var i=0; i<currentLabels.length; i++)
+			for(var i:uint=0; i<currentLabels.length; i++)
 			{
-				var t=currentLabels[i].name;
+				var t:String=currentLabels[i].name;
 				if (t.slice(0,6)=="attack")
 				{
 					possibleAttacks.push(currentLabels[i].name);
@@ -236,27 +248,38 @@
 			if (! action.actionInProgress(Action.ATTACK)&&! dead)
 			
 			{
-				findAttackTarget();
+				addLoopListener(attackLoop);
 				action.setAction(Action.ATTACK);
 				if (this is Character)
 				{
-					this.velocityX*=10;
+					this.velocityX+=(velocityX>0)?8:-8
+					
 				}
 			}
 		}
-		protected function onAttackComplete():void
+		private function attackLoop(e:GameEvent):void
 		{
-
+			if(!hasAttackTarget){
+				findAttackTarget(stage.frameRate-attackElapsed);
+				hasAttackTarget=true;
+			}
+			attackElapsed++
 		}
-		private function findAttackTarget():Boolean
+		private function onAttackComplete():void
 		{
-			var f=false;
-			for (var i=0; i<GameObject.enum.length; i++)
+			dispatchEvent(new GameEvent(GameEvent.ATTACK_COMPLETE));
+			hasAttackTarget=false
+			attackElapsed=0
+		}
+		private function findAttackTarget(s:uint):Boolean
+		{
+			var f:Boolean=false;
+			for(var i:uint=0; i<GameObject.enum.length; i++)
 			{
-				var t=GameObject.enum[i];
-				if (Collision.hitTestShape(this,t)&&t!=this&&t.faction!=this.faction&&!t.dead)
+				var t:GameObject=GameObject.enum[i];
+				if (Collision.hitTestShape(this,t)&&t!=this&&t.faction!=this.faction&&!t.dead && !t.hurting)
 				{
-					t.dispatchEvent(new GameEvent(GameEvent.HIT,{sender:this,damage:this.attackPower,velocity:(this.x-t.x)/25}));
+					t.dispatchEvent(new GameEvent(GameEvent.HIT,{sender:this,damage:this.attackPower,velocity:this.velocityX}));
 					f=true;
 					break;
 				}
@@ -278,7 +301,11 @@
 				{
 					health-=e.params.damage;
 					healthBar.setValue(health);
-					velocityX-=e.params.velocity
+					push(e.params.velocity);
+					
+					
+					
+					hurting=true;
 					flashThis(25,2);
 				} else
 				{
@@ -320,6 +347,7 @@
 					{
 						this.jumpHeight=Math.max(e.params.jumpHeight,MIN_JUMP_HEIGHT);
 					}
+					this.velocityY=0;
 					this.bounce=e.params.bounce;
 					this.bounceX=e.params.bounceX;
 					this.friction=e.params.friction;
@@ -390,17 +418,15 @@
 		}
 		private function onLoop(e:GameEvent):void
 		{
+			pushVelocity*=.95
 			customActions();
 			healthBar.scaleX=sensors.scaleX=movementDirection==0?1:movementDirection;
 		
-			if (movementDirection!=0)
-			{
-				this.scaleX=movementDirection*originalScaleX;
-			}
+
 			if ((movementDirection==1 && canMoveRight) || (movementDirection==-1 && canMoveLeft))
 			{
 
-				this.x+=velocityX;
+				this.x+=velocityX+pushVelocity;
 
 			}
 			if (! falling&&bounce>0)
@@ -435,7 +461,7 @@
 			getPossibleAttacks();
 			//healthBar.place();
 		}
-		public function flashThis(duration:uint,update:uint)
+		public function flashThis(duration:uint,update:uint):void
 		{
 			flashDuration=duration;
 			flashUpdate=update;
@@ -451,7 +477,7 @@
 		public static function setEnum(w:ScrollWorld):void
 		{
 			enum.length=0;
-			for (var i=0; i<tEnum.length; i++)
+			for(var i:uint=0; i<tEnum.length; i++)
 			{
 				if (tEnum[i].myWorld==w)
 				{
@@ -459,7 +485,7 @@
 				}
 			}
 		}
-		protected function checkChange(e:GameEvent)
+		protected function checkChange(e:GameEvent):void
 		{
 			changeX=this.x-lastX;
 			changeY=this.y-lastY;
@@ -467,7 +493,7 @@
 			lastY=this.y;
 		}
 
-		protected function tryJump(j:Number,manual:Boolean=true)
+		protected function tryJump(j:Number,manual:Boolean=true):void
 		{
 			if (collisions.top==0)
 			{
@@ -488,8 +514,14 @@
 				Game._root.removeEventListener(GameEvent.LOOP,onLoopFlash);
 				this.alpha=1;
 				flashElapsed=0;
+				hurting=false;
 			}
 			flashElapsed++
+		}
+		
+		public function push(i:Number):void
+		{
+			pushVelocity=i;
 		}
 
 

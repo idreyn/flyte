@@ -1,16 +1,12 @@
-﻿package flyte.motion{
-	import flyte.base.*;
-	import flyte.events.*;
-	import flyte.motion.*;
-	import fl.motion.Tweenables;
-	import fl.transitions.Tween;
-	import fl.transitions.TweenEvent;
-	import fl.transitions.easing.*;
+﻿package org.flyte.motion{
+	import org.flyte.base.*;
+	import org.flyte.events.*;
+	import org.flyte.motion.*;
+	import flash.display.*;
 	public class MotionTargetedGO extends GameObject implements IMotionTargetable {
 		public var hasTarget:Boolean=false;
 		public var usesTarget:Boolean=false;
 		public var motionTarget:MotionTarget;
-		private var tweenX:Tween;
 		private var canContinueTween:Boolean;
 		private var motionTargetOriginX:Number;
 		private var movementDirectionDefault:int;
@@ -47,13 +43,13 @@
 		}
 		public function findMotionTarget():Boolean {
 			var n:String=this.name;
-			var c=true;
+			var c:Boolean=true;
 			var has:Boolean=false;
-			for (var i=0; i<parent.numChildren; i++) {
-				var t=parent.getChildAt(i);
-				var tn=t.name;
+			for(var i:uint=0; i<parent.numChildren; i++) {
+				var t:DisplayObject=parent.getChildAt(i);
+				var tn:String=t.name;
 				if (tn.slice(0,n.length)==n&&t!=this&&t is MotionTarget) {
-					motionTarget=t;
+					motionTarget=MotionTarget(t);
 					movementDirectionDefault=motionTarget.x>this.x?1:-1;
 					//movingRight=(movementDirectionDefault==1)
 					motionTargetOriginX=motionTarget.x;

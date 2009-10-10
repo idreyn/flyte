@@ -1,8 +1,9 @@
-﻿package flyte.objective{
-	import flyte.collision.*
-	import flyte.event.*
-	import flyte.base.*
-	import flyte.events.*
+﻿package org.flyte.objective{
+	import org.flyte.collision.*
+	import org.flyte.events.*
+	import org.flyte.base.*
+	import org.flyte.events.*
+	import org.flyte.character.*
 	public class Checkpoint extends GameMovieClip{
 		public static var currentX:Number
 		public static var currentY:Number
@@ -13,7 +14,7 @@
 			resettable=false
 			number=enum.length
 			enum.push(this)
-			addEventListener(Event.ADDED,onAdded)
+			addEventListener(GameEvent.ADDED,onAdded)
 		}
 		private function onAdded(e:GameEvent):void{
 			addLoopListener(loop)

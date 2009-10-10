@@ -1,9 +1,8 @@
-﻿package flyte.item{
-	import flyte.item.*;
-	import flyte.base.*;
-	import flyte.objective.*;
-	import flyte.events.*;
-	import fl.transitions.easing.*
+﻿package org.flyte.item{
+	import org.flyte.item.*;
+	import org.flyte.base.*;
+	import org.flyte.objective.*;
+	import org.flyte.events.*;
 	public class AccessItem extends Collectible {
 		public var target:GameMovieClip;
 		public var hasTarget:Boolean=false;
@@ -25,9 +24,9 @@
 		public function findTarget():Boolean {
 			var n:String=this.name;
 			var b:Boolean=false;
-			for (var i=0; i<ActivateTargetable.enum.length; i++) {
-				var t=ActivateTargetable.enum[i];
-				var tn=t.name;
+			for(var i:uint=0; i<ActivateTargetable.enum.length; i++) {
+				var t:*=ActivateTargetable.enum[i];
+				var tn:String=t.name;
 				if (tn.slice(0,n.length)==n&&t!=this&&t is IActivateTargetable) {
 					target=t;
 					b=true;

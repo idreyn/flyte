@@ -1,15 +1,14 @@
-﻿package flyte.base{
-	import flyte.base.*;
-	import flyte.world.*;
-	import flyte.character.*;
-	import flyte.events.*;
-	import flyte.collision.*;
-	import flyte.zone.*;
+﻿package org.flyte.base{
+	import org.flyte.character.*;
+	import org.flyte.collision.*;
+	import org.flyte.events.*;
+	import org.flyte.world.*;
+	import org.flyte.zone.*;
 	/**
 	 * A SelfControlledGameObject represents any GameObject that moves on its own and,
 	 * more importantly, won't fall off the edge of Terrain or a Platform into the abyss.
-	 * @see flyte.world.Terrain
-	 * @see flyte.world.Platform
+	 * @see org.flyte.world.Terrain
+	 * @see org.flyte.world.Platform
 	 * @see GameObject 
 	 * @author Ian Reynolds
 	 */	
@@ -17,7 +16,7 @@
 		/**
 		 * The maximum distance from the game's character (Character.current) that the
 		 * object knows the position of the character
-		 * @see flyte.character.Character#current
+		 * @see org.flyte.character.Character#current
 		 */
 		public var visionRange:Number=300;
 		protected var restriction:RestrictionZone;
@@ -43,7 +42,7 @@
 			Game._root.addEventListener(GameEvent.LOOP,onLoopE);
 		}
 		private function determineRestrictionZone():void {
-			for (var i=0; i<RestrictionZone.enum.length; i++) {
+			for(var i:uint=0; i<RestrictionZone.enum.length; i++) {
 				if (Collision.hitTestShape(this,RestrictionZone.enum[i])) {
 					restriction=RestrictionZone.enum[i];
 					break;
@@ -77,17 +76,17 @@
 
 		}
 		private function checkEdges():void {
-			var l=false;
-			var r=false;
-			for (i=0; i<Standable.enum.length; i++) {
-				t=Standable.enum[i];
+			var l:Boolean=false;
+			var r:Boolean=false;
+			for (var i:uint=0; i<Standable.enum.length; i++) {
+				var t:*=Standable.enum[i];
 				if (Collision.hitTestShape(this.sensors.leftEdge,t)) {
 					l=true;
 					break;
 				}
 			}
-			for (var i=0; i<Standable.enum.length; i++) {
-				var t=Standable.enum[i];
+			for(i=0; i<Standable.enum.length; i++) {
+				t=Standable.enum[i];
 				if (Collision.hitTestShape(this.sensors.rightEdge,t)) {
 					r=true;
 					break;

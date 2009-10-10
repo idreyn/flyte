@@ -1,12 +1,12 @@
-﻿package flyte.item
+﻿package org.flyte.item
 {
-	import flyte.base.GameMovieClip;
-	import flyte.item.*;
-	import flyte.objective.*;
-	import flyte.events.*;
-	import flyte.collision.*;
-	import flyte.character.*;
-	import flyte.display.*;
+	import org.flyte.base.GameMovieClip;
+	import org.flyte.item.*;
+	import org.flyte.objective.*;
+	import org.flyte.events.*;
+	import org.flyte.collision.*;
+	import org.flyte.character.*;
+	import org.flyte.display.*;
 	public class Collectible extends GameMovieClip
 	{
 		public var collected:Boolean=false;

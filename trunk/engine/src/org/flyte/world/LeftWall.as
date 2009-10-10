@@ -1,8 +1,7 @@
-﻿package flyte.world{
-	import flyte.events.*;
-	import flyte.collision.*;
-	import flyte.world.*;
-	import flyte.base.*;
+﻿package org.flyte.world{
+	import org.flyte.base.*;
+	import org.flyte.collision.*;
+	import org.flyte.events.*;
 	public class LeftWall extends Surface {
 		public function LeftWall() {
 			type=CollisionType.RIGHT;
@@ -12,8 +11,8 @@
 			checkCollisions();
 		}
 		private function checkCollisions():void {
-			for (var i=0; i<GameObject.enum.length; i++) {
-				var t=GameObject.enum[i];
+			for (var i:uint=0; i<GameObject.enum.length; i++) {
+				var t:GameObject=GameObject.enum[i];
 				if (Collision.hitTestShape(this,t.sensors.right)) {
 					if (! touching[i]) {
 						touching[i]=true;

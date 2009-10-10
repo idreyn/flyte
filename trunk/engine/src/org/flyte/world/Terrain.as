@@ -1,8 +1,7 @@
-﻿package flyte.world{
-	import flyte.base.*;
-	import flyte.collision.*;
-	import flyte.events.GameEvent;
-	import flash.utils.Dictionary;
+﻿package org.flyte.world{
+	import org.flyte.base.*;
+	import org.flyte.collision.*;
+	import org.flyte.events.GameEvent;
 	/**
 	 * A Terrain object represents something that GameObjects can walk on that may not
 	 * be perfectly flat. If you want to make a hill for your character to climb, you would
@@ -11,22 +10,22 @@
 	 * a completely different function, as it checks collisions against its square bounding box
 	 * and can be made to move or activate and deactivate periodically.
 	 * @author Ian Reynolds
-	 * @see flyte.base.GameObject
-	 * @see flyte.collision.Standable
-	 * @see flyte.world.Platform
+	 * @see org.flyte.base.GameObject
+	 * @see org.flyte.collision.Standable
+	 * @see org.flyte.world.Platform
 	 */
 	public class Terrain extends Standable {
 		/**
 		 * An array of all Terrain objects in a flash movie. Populating this with
 		 * objects from outside the current ScrollWorld will not affect performance.
-		 * @see flyte.world.ScrollWorld
+		 * @see org.flyte.world.ScrollWorld
 		 */
 		public static var enum:Array=new Array();
-		protected var rebound=1;
-		protected var bounce=0;
-		protected var jumpHeight=3;
-		private var MAX=0.96;
-		private  var MIN=0.6;
+		protected var rebound:Number=1;
+		protected var bounce:Number=0;
+		protected var jumpHeight:Number=3;
+		private var MAX:Number=0.96;
+		private  var MIN:Number=0.6;
 		protected var collision:CollisionDictionary;
 		public function Terrain() {
 			collision=new CollisionDictionary();
@@ -38,11 +37,8 @@
 			collision.clear();
 		}
 		private function onLoop(e:GameEvent):void {
-			for (var i=0; i<GameObject.enum.length; i++) {
-				var t=GameObject.enum[i];
-				var o;
-				var m;
-				var w;
+			for(var i:uint=0; i<GameObject.enum.length; i++) {
+				var t:GameObject=GameObject.enum[i];
 				t.sensors.bottom.scaleX=0.96;
 				if (Collision.hitTestShape(t.sensors.bottom,this)) {
 					if (! collision.isCollisionAt(i,CollisionType.BOTTOM)) {

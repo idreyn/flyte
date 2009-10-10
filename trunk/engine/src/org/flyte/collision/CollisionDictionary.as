@@ -1,12 +1,12 @@
-﻿package flyte.collision{
+﻿package org.flyte.collision{
 	import flash.utils.Dictionary;
-	import flyte.collision.*
+	import org.flyte.collision.*
 	/**
 	 * A CollisionDictionary object allows a DisplayObject to keep track of which
 	 * GameMovieClips are touching it and how.
-	 * @see flyte.base.GameMovieClip
-	 * @see flyte.collision.Collision
-	 * @see flyte.collision.Sensors
+	 * @see org.flyte.base.GameMovieClip
+	 * @see org.flyte.collision.Collision
+	 * @see org.flyte.collision.Sensors
 	 * @author Ian Reynolds
 	 * 
 	 */	

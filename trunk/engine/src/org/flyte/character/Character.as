@@ -1,28 +1,31 @@
-﻿package flyte.character{
-	import flyte.objective.*;
-	import flyte.collision.*;
-	import flyte.events.*;
-	import flyte.display.*;
-	import flyte.world.*;
-	import flyte.utils.*;
-	import flyte.game.*;
-	import flyte.base.*;
-	import flyte.io.*;
+﻿package org.flyte.character{
+	import org.flyte.objective.*;
+	import org.flyte.collision.*;
+	import org.flyte.events.*;
+	import org.flyte.display.*;
+	import org.flyte.world.*;
+	import org.flyte.utils.*;
+	import org.flyte.game.*;
+	import org.flyte.base.*;
+	import org.flyte.io.*;
 	import flash.ui.Keyboard;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.display.MovieClip;
-	import fl.transitions.Tween;
-	import fl.transitions.easing.*;
-	import fl.motion.Tweenables;
 	/**
 	 * A Character is the object that the player controls. The semantics of this class is questionable.
 	 * It really refers to the "hero" of the game. The character's controls can be set with the key property of the current ScrollWorld.
-	 * @see flyte.io.KeyControls
-	 * @see flyte.world.ScrollWorld
+	 * @see org.flyte.io.KeyControls
+	 * @see org.flyte.world.ScrollWorld
 	 * @author Ian Reynolds
 	 */
 	public dynamic class Character extends GameObject {
+		/**
+		 * A reference to the Character in the current ScrollWorld.
+		 * Identical to calling Game._root.world.character, but with a lot
+		 * less carpal tunnel syndrome.
+		 * @see org.flyte.world.ScrollWorld
+		 */
 		public static var current:Character;
 		protected var attackInterval:uint=5;
 		protected var attackWaiting:Boolean;
@@ -30,21 +33,23 @@
 		protected var jumped:uint=0;
 		public function Character() {
 			//destroyable=false
+			this.addLoopListener(onLoop);
 			this.attackPower=34;
 			velocityX=0;
 			this.faction=FactionManager.GOOD;
 			addEventListener(GameEvent.ADDED,added);
 			addEventListener(GameEvent.COLLISION,onCollision);
+			addEventListener(GameEvent.ATTACK_COMPLETE,onAttackComplete);
 			Game._root.world.character=this;
 			Game._root.world.dispatchEvent(new GameEvent(GameEvent.CHARACTER_FOUND));
 			Game._root.world.addEventListener(GameEvent.RESET_LEVEL,onResetLevelE);
-			this.healthBar.visible=false
+			this.healthBar.visible=false;
 		}
 		protected function added(e:GameEvent):void {
 			world.key.addEventListener(GameEvent.KEY_DOWN,keyDown);
 			world.key.addEventListener(GameEvent.KEY_UP,keyUp);
 		}
-		protected override function onAttackComplete():void {
+		private function onAttackComplete(e:GameEvent):void {
 			attackWaiting=true;
 		}
 		protected override function onDie():void {
@@ -64,6 +69,11 @@
 				case CollisionType.BOTTOM :
 					jumped=0;
 
+			}
+		}
+		private function onLoop(e:GameEvent):void {
+			if (movementDirection!=0) {
+				this.scaleX=movementDirection*originalScaleX;
 			}
 		}
 		protected override function customActions():void {
@@ -87,7 +97,7 @@
 					}
 					//action.setAction(Action.JUMP)
 					break;
-				case KeyControls.RIGHT:   
+				case KeyControls.RIGHT :
 					action.setDefault(Action.RUN);
 					break;
 				case KeyControls.LEFT :
@@ -98,7 +108,7 @@
 		}
 		private function keyUp(e:GameEvent):void {
 			switch (e.params.key) {
-				case KeyControls.LEFT:
+				case KeyControls.LEFT :
 					if (! world.key.isDown(KeyControls.RIGHT)) {
 						action.setDefault(Action.STILL);
 					}
@@ -115,7 +125,6 @@
 			if (world.key.isDown(KeyControls.ATTACK)) {
 				if (! attacking&&! attackWaiting) {
 					attack();
-					trace("try attack from Character::checkKeys()");
 				}
 
 			}

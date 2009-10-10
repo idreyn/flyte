@@ -1,6 +1,6 @@
-﻿package flyte.io{
-	import flyte.events.*;
-	import flyte.base.*;
+﻿package org.flyte.io{
+	import org.flyte.events.*;
+	import org.flyte.base.*;
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
 	import flash.ui.Keyboard;
@@ -12,7 +12,7 @@
 		private function onAdded(event:Event):void {
 			Game._root.stage.addEventListener(KeyboardEvent.KEY_DOWN,keyDown);
 			Game._root.stage.addEventListener(KeyboardEvent.KEY_UP,keyUp);
-			for (var i=0; i<255; i++) {
+			for(var i:uint=0; i<255; i++) {
 				keyList[i]=false;
 			}
 		}
@@ -29,7 +29,7 @@
 		}
 		public function getKeysdown():Array {
 			var a:Array=new Array();
-			for (var i=0; i<255; i++) {
+			for(var i:uint=0; i<255; i++) {
 				if (keyList[i]) {
 					a.push(i);
 				}

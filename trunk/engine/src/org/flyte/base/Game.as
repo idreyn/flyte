@@ -1,11 +1,11 @@
-﻿package flyte.base{
+﻿package org.flyte.base{
 	import flash.display.*;
 	import flash.events.Event;
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
 	import flash.events.KeyboardEvent;
-	import flyte.events.GameEvent;
-	import flyte.world.ScrollWorld;
+	import org.flyte.events.GameEvent;
+	import org.flyte.world.ScrollWorld;
 	/**
 	 * The Game class is the top level of a Flyte game. Inside it, you can listen for GameEvents,
 	 * load ScrollWorlds, and do everything else involved with building your game. Game can be your

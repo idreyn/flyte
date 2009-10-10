@@ -1,47 +1,47 @@
-﻿package flyte.events{
+﻿package org.flyte.events{
 	import flash.events.Event;
 	/**
-	 * The GameEvent class is a set of events that can be dispatched unique to Flyte.
+	 * The GameEvent class is a set of events that can be dispatched unique to org.flyte.
 	 */
 	public class GameEvent extends Event{
 		/**
 		 * The event dispatched once per Event.ENTER_FRAME if the game is not paused.
-		 * @see flyte.base.Game
+		 * @see org.flyte.base.Game
 		 */
 		public static const LOOP:String="gameEventLoop"
 		/**
 		 * The event dispatched by a KeyListener when a key is pressed.
-		 * @see flyte.io.KeyListener
+		 * @see org.flyte.io.KeyListener
 		 */
 		public static const KEY_DOWN:String="gameKeyDown"
 		/**
 		 * The event dispatched by a KeyListener when a key is released.
-		 * @see flyte.io.KeyListener
+		 * @see org.flyte.io.KeyListener
 		 */
 		public static const KEY_UP:String="gameKeyUp"
 		/**
 		 * The event dispatched by a GameMovieClip when it is added to the display list
 		 * and initialized.
-		 * @see flyte.base.GameMovieClip
+		 * @see org.flyte.base.GameMovieClip
 		 */
 		public static const ADDED:String="gameAdded"
 		/**
 		 * The event dispatched by a ScrollWorld when it determines that it contains a Character object.
 		 * It's worth noting that the Character object actually does this by calling Game._root.world.
-		 * @see flyte.world.ScrollWorld
-		 * @see flyte.character.Character
+		 * @see org.flyte.world.ScrollWorld
+		 * @see org.flyte.character.Character
 		 */
 		public static const CHARACTER_FOUND:String="gameFoundCharacter"
 		/**
 		 * Dispatched by an instance of Standable to a GameObject when they collide.
-		 * @see flyte.collision.Standable
-		 * @see flyte.base.GameObject
+		 * @see org.flyte.collision.Standable
+		 * @see org.flyte.base.GameObject
 		 */
 		public static const COLLISION:String="gameCollision"
 		/**
 		 * Dispatched by an instance of Standable to a GameObject when their collision ends.
-		 * @see flyte.collision.Standable
-		 * @see flyte.base.GameObject
+		 * @see org.flyte.collision.Standable
+		 * @see org.flyte.base.GameObject
 		 */
 		public static const END_COLLISION:String="gameEndCollision"
 		/**
@@ -58,35 +58,35 @@
 		public static const GAME_INIT:String="gameInit"
 		/**
 		 * Dispatched by a Floor object when the character touches it.
-		 * @see flyte.world.Floor
-		 * @see flyte.character.Character
+		 * @see org.flyte.world.Floor
+		 * @see org.flyte.character.Character
 		 */
 		public static const ENTER_PLATFORM:String="gameEnterPlatform"
 		/**
 		 * Dispatched by a Floor object when the character leaves it.
-		 * @see flyte.world.Floor
-		 * @see flyte.character.Character
+		 * @see org.flyte.world.Floor
+		 * @see org.flyte.character.Character
 		 */
 		public static const LEAVE_PLATFORM:String="gameLeavePlatform"
 		/**
 		 * Dispatched by a GameObject when it gains health.
-		 * @see flyte.base.GameObject
+		 * @see org.flyte.base.GameObject
 		 */
 		public static const GAIN_HEALTH:String="gameGainHealth"
 		/**
 		 * Dispatched to a GameObject to cause it to lose health.
 		 * Example: <listing version="3.0">aGameObject.dispatchEvent(new GameEvent(GameEvent.HIT,{damage:value}))</listing>
-		 * @see flyte.base.GameObject
+		 * @see org.flyte.base.GameObject
 		 */
 		public static const HIT:String="gameLoseHealth"
 		/**
 		 * Dispatched by a Game object when it pauses execution of the game.
-		 * @see flyte.base.Game
+		 * @see org.flyte.base.Game
 		 */
 		public static const PAUSE:String="gamePause"
 		/**
 		 * Dispatched by a Game object when it resumes execution of the game.
-		 * @see flyte.base.Game
+		 * @see org.flyte.base.Game
 		 */
 		public static const RESUME:String="gameResume"
 		/**
@@ -105,12 +105,12 @@
 		/**
 		 * Dispatched by a SelfControlledGameObject when after it looks for a RestrictionZone
 		 * (RestrictionZone not yet implemented)
-		 * @see flyte.motion.SelfControlledGameObject
+		 * @see org.flyte.motion.SelfControlledGameObject
 		 */
 		public static const DETERMINE_RESTRICTION:String="gameDetermineRestriction"
 		/**
 		 * Dispatched by a GameObject when it kicks the bucket.
-		 * @see flyte.base.GameObject
+		 * @see org.flyte.base.GameObject
 		 */
 		public static const DIE:String="gameDie"
 		/**
@@ -123,27 +123,27 @@
 		public static const GAME_OVER:String="gameOver"
 		/**
 		 * Dispatched by the action:ActionManager property of a GameMovieClip when an action finishes
-		 * @see flyte.display.ActionManager
-		 * @see flyte.base.GameMovieClip 
+		 * @see org.flyte.display.ActionManager
+		 * @see org.flyte.base.GameMovieClip 
 		 */
 		public static const ACTION_COMPLETE:String="gameActionComplete"
 		/** Dispatched by a Collectible when it is collected.
-		 * @see flyte.item.Collectible
+		 * @see org.flyte.item.Collectible
 		 */
 		public static const COLLECTED:String="gameCollected"
 		/**
 		 * Dispatched to activate an object that implements IActivateTargetable.
-		 * @see flyte.objective.IActivateTargetable
+		 * @see org.flyte.objective.IActivateTargetable
 		 */
 		 public static const ACTIVATE:String="gameActivate"
 		/**
 		 * Dispatched to deactivate an object that implements IActivateTargetable.
-		 * @see flyte.objective.IActivateTargetable
+		 * @see org.flyte.objective.IActivateTargetable
 		 */
 		 public static const DEACTIVATE:String="gameDeactivate"
 		/**
 		 * Dispatched by an AccessItem when it finds a target
-		 * @see flyte.item.AccessItem
+		 * @see org.flyte.item.AccessItem
 		 */
 		public static const TARGET:String="gameTarget"
 		/**
@@ -153,6 +153,7 @@
 		public static const CHARACTER_ENTER:String="gameCharacterEnter"
 		public static const EXIT:String="gameExit"
 		public static const CHARACTER_EXIT:String="gameCharacterExit"
+		public static const ATTACK_COMPLETE:String="gameAttackComplete"
 		public var params:Object
 		public function GameEvent(type:String,params:Object=null){
 			super(type)

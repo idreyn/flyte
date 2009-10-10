@@ -1,7 +1,7 @@
-﻿package flyte.display{
+﻿package org.flyte.display{
 	import flash.display.*;
 	
-	import flyte.base.*;
+	import org.flyte.base.*;
 	public class HealthBar extends GameMovieClip{
 		private var bar:Sprite
 		private var widthO:uint

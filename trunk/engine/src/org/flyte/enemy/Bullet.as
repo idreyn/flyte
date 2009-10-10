@@ -1,9 +1,13 @@
-﻿package flyte.enemy{
-	import flyte.events.GameEvent
-	import flyte.projectile.*
+﻿package org.flyte.enemy{
+	import org.flyte.display.*;
+	import org.flyte.events.GameEvent;
+	import org.flyte.projectile.*;
+	import org.flyte.character.*;
+	import org.flyte.collision.*;
 	public class Bullet extends Projectile{
 		public static var FRIENDLY_FIRE:Boolean=false
 		public var faction:String
+		public var damage:uint
 		public function Bullet(f:String){
 			this.faction=f
 			addEventListener(GameEvent.ADDED,onAdded)
@@ -20,7 +24,7 @@
 				if(Collision.hitTestShape(this,Character.current)){
 					Character.current.dispatchEvent(new GameEvent(GameEvent.HIT,{damage:this.damage}))
 					action.setAction(Action.DESTROY)
-					power=0
+					velocityX=velocityY=0;
 				}
 			}
 		}

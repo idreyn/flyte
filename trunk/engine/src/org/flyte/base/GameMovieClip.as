@@ -1,20 +1,20 @@
-﻿package flyte.base{
+﻿package org.flyte.base{
 	import flash.display.MovieClip;
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
 	
-	import flyte.collision.*;
-	import flyte.display.*;
-	import flyte.events.GameEvent;
-	import flyte.motion.*;
-	import flyte.world.ScrollWorld;
+	import org.flyte.collision.*;
+	import org.flyte.display.*;
+	import org.flyte.events.GameEvent;
+	import org.flyte.motion.*;
+	import org.flyte.world.ScrollWorld;
 	/**
 	 * A GameMovieClip represents anything within your game that reacts to events in the game, has a Sensors object
 	 * surrounding it for collisions.
 	 * and makes use of ActionManager to control its timeline. Just about anything you add to your
 	 * game should be a GameMovieClip.
 	 * @author Ian Reynolds
-	 * @see flyte.display.ActionManager
+	 * @see org.flyte.display.ActionManager
 	 */
 	public class GameMovieClip extends MovieClip {
 		private var t:Timer;
@@ -28,12 +28,12 @@
 		 * a property unique to each GameMovieClip but rather is set by a call to GameMovieClip.updateRoot().
 		 * @see #updateRoot()
 		 * @see #myWorld
-		 * @see flyte.world.ScrollWorld
+		 * @see org.flyte.world.ScrollWorld
 		 */
 		public var world:ScrollWorld;
 		/**
 		 * A refernce to the ScrollWorld that contains the GameMovieClip.
-		 * @see flyte.world.ScrollWorld
+		 * @see org.flyte.world.ScrollWorld
 		 */
 		public var myWorld:ScrollWorld;
 		/**
@@ -55,9 +55,9 @@
 		 * timeline to the frame associated with <listing version="3.0">Action.RUN</listing> by <listing version="3.0">action.mapAction()</listing>
 		 * The action object has a property called DEFAULT (referring to the default state of the GameMovieClip), which is not to be confused with <listing version="3.0">Action.DEFAULT</listing>
 		 * which, if it existed, would be a static property of the Action class rather than an instance property of ActionManager.
-		 * @see flyte.display.ActionManager#setAction()
-		 * @see flyte.display.ActionManager#mapAction()
-		 * @see flyte.display.Action
+		 * @see org.flyte.display.ActionManager#setAction()
+		 * @see org.flyte.display.ActionManager#mapAction()
+		 * @see org.flyte.display.Action
 		 * */
 		public var action:ActionManager;
 		protected var ignored:Boolean=false;
@@ -82,7 +82,7 @@
 		 * Adds an event listener for GameEvent.LOOP that calls the function f.
 		 * The same as calling
 		 * <listing version="3.0">Game._root.addEventListener(GameEvent.LOOP,f)</listing>
-		 * @see flyte.events.GameEvent
+		 * @see org.flyte.events.GameEvent
 		 */
 		public function addLoopListener(f:Function):void {
 			Game._root.addEventListener(GameEvent.LOOP,f);
@@ -91,7 +91,7 @@
 		 * Adds an event listener for GameEvent.RESET_LEVEL that calls the function f.
 		 * The same as calling
 		 * <listing version="3.0">Game._root.world.addEventListener(GameEvent.RESET_LEVEL,f)</listing>
-		 * @see flyte.events.GameEvent
+		 * @see org.flyte.events.GameEvent
 		 */
 		public function addResetListener(f:Function):void {
 			Game._root.world.addEventListener(GameEvent.RESET_LEVEL,f);
@@ -104,10 +104,10 @@
 		 * Use with caution. Or rather, not at all.
 		 * @param w The ScrollWorld that all GameMovieClips will refer to as world.
 		 * @see GameMovieClip#world
-		 * @see flyte.world.ScrollWorld.
+		 * @see org.flyte.world.ScrollWorld.
 		 */
 		public static function updateRoot(w:ScrollWorld):void {
-			for (var i=0; i<enum.length; i++) {
+			for(var i:uint=0; i<enum.length; i++) {
 				enum[i].world=w;
 			}
 		}
@@ -131,9 +131,9 @@
 		 * (A Projectile has a property called Container, which is simply its parent on the display
 		 * list cast as a GameMovieClip. Its parent, the ProjectileEmitter, then removes it on the next
 		 * GameEvent.LOOP iteration.
-		 * @see flyte.events.GameEvent#LOOP
-		 * @see flyte.projectile.Projectile
-		 * @see flyte.projectile.ProjectileEmitter
+		 * @see org.flyte.events.GameEvent#LOOP
+		 * @see org.flyte.projectile.Projectile
+		 * @see org.flyte.projectile.ProjectileEmitter
 		 */
 		public function removeMe(d:GameMovieClip):void {
 			removeList.push(d);
@@ -192,9 +192,9 @@
 			return r2p(this.x,this.y,vx,vy)-this.rotation;
 		}
 		public function r2p(ax:Number,ay:Number,x:Number,y:Number):Number {
-			var dx=x-ax
-			var dy=y-dy
-			var quad;
+			var dx:Number=x-ax
+			var dy:Number=y-dy
+			var quad:Number;
 			if (dx>0&&dy>0) {
 				quad=4;
 			}
@@ -207,10 +207,10 @@
 			if (dx>0&&dy<0) {
 				quad=3;
 			}
-			var ax=Math.abs(dx);
-			var ay=Math.abs(dy);
-			var theta=Math.atan(ay/ax)*(180/Math.PI);
-			var angle;
+			var ax:Number=Math.abs(dx);
+			var ay:Number=Math.abs(dy);
+			var theta:Number=Math.atan(ay/ax)*(180/Math.PI);
+			var angle:Number;
 			if (quad==1) {
 				angle=90-theta;
 			}
@@ -229,7 +229,7 @@
 			if (removeList.length==0) {
 			}
 			return void;
-			for (var i=0; i<removeList.length; i++) {
+			for(var i:uint=0; i<removeList.length; i++) {
 				removeChild(removeList[i]);
 				delete removeList[i];
 			}

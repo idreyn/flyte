@@ -1,11 +1,11 @@
-﻿package flyte.world
+﻿package org.flyte.world
 {
-	import flyte.base.*;
-	import flyte.events.*;
-	import flyte.world.*;
-	import flyte.collision.*;
-	import flyte.character.*;
-	import flyte.display.*;
+	import org.flyte.base.*;
+	import org.flyte.events.*;
+	import org.flyte.world.*;
+	import org.flyte.collision.*;
+	import org.flyte.character.*;
+	import org.flyte.display.*;
 	public class ActivatablePlatform extends Platform
 	{
 		public var access:Boolean=false;
