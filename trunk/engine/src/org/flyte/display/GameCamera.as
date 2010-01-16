@@ -19,7 +19,7 @@
 		private var active:Boolean=false;
 		public var easeX:Number=0.2;
 		public var easeY:Number=0.2;
-		public var distance:Number=0.4
+		public var distance:Number=1
 		public function GameCamera() {
 			addLoopListener(onLoop)
 		}

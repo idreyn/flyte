@@ -1,6 +1,6 @@
 
 ﻿package org.flyte.base{
-	import flash.display.MovieClip;
+	import flash.display.*;
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
 	
@@ -203,8 +203,7 @@
 		{
 			return degrees(Math.atan2(y1-y2,x1-x2));
 		}
-<<<<<<< .mine
-=======
+
 		public function r2p(ax:Number,ay:Number,x:Number,y:Number):Number {
 			var dx:Number=x-ax
 			var dy:Number=y-dy
@@ -239,7 +238,7 @@
 			}
 			return angle;
 		}
->>>>>>> .r14
+
 		private function removeChildren(e:GameEvent):void {
 			if (removeList.length==0) {
 			}
