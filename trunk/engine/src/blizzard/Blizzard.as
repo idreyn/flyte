@@ -10,7 +10,8 @@
 	{
 		public function Blizzard()
 		{
-			this.jumpDampingHold=1.05
+			//This is the line that makes Blizzard fly.
+			this.jumpDampingHold=1.05 //0.85
 			this.attackPower=200
 			addEventListener(GameEvent.COLLISION,onCollision);
 			addEventListener(GameEvent.ADDED,onAdded)
