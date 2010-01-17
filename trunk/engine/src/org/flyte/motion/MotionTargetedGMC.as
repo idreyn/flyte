@@ -1,7 +1,5 @@
 ﻿package org.flyte.motion{
-	import fl.transitions.Tween;
-	import fl.transitions.TweenEvent;
-	import fl.transitions.easing.*;
+	import caurina.transitions.Tweener;
 	
 	import flash.display.DisplayObject;
 	import flash.events.*;
@@ -14,8 +12,7 @@
 		public var usesTarget:Boolean=false;
 		public var motionTarget:MotionTarget;
 		public var time:Number
-		private var tweenX:Tween
-		private var tweenY:Tween
+		public var tweenType:*="linear"
 		protected var activated:Boolean=true
 		public function MotionTargetedGMC() {
 			addEventListener(GameEvent.ADDED,onAdded);
@@ -37,20 +34,20 @@
 		}
 		private function startMotion(m:MotionTarget):void {
 			velocityX=3
-			if(!time>0) time=Math.sqrt(Math.pow(m.x-this.x,2)+Math.pow(m.y-this.y,2))/velocityX;
-			tweenX=new Tween(this,"x",None.easeNone,this.x,m.x,time,false);
-			tweenY=new Tween(this,"y",None.easeNone,this.y,m.y,time,false);
-			tweenX.addEventListener(TweenEvent.MOTION_FINISH,tweenComplete);
+			if(!time>0) time=Math.sqrt(Math.pow(m.x-this.x,2)+Math.pow(m.y-this.y,2))/velocityX/stage.frameRate;
+			Tweener.addTween(this,{x:m.x,y:m.y,time:this.time,onComplete:tweenComplete,transition:tweenType})
 		}
-		private function tweenComplete(e:Event):void {
-			tweenX.yoyo();
-			tweenY.yoyo();
+		private function tweenComplete():void {
+			Tweener.addTween(this,{x:this.originX,y:this.originY,time:this.time,onComplete:startAgain,transition:tweenType})
+			
 		}
-		protected function stopMotion():void
+		
+		private function startAgain():void
 		{
-			tweenX.stop();
-			tweenY.stop();
+			Tweener.addTween(this,{x:motionTarget.x,y:motionTarget.y,time:this.time,onComplete:tweenComplete,transition:tweenType})
 		}
+			
+
 			
 		public function findMotionTarget():Boolean {
 			var n:String=this.name;

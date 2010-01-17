@@ -124,7 +124,7 @@
 		private var _bounds:Rectangle
 		protected var lastX:Number=0;
 		protected var lastY:Number=0;
-		protected var originLives:uint=lives;
+		public var originLives:uint=lives;
 		protected var possibleAttacks:Array;
 		protected var originalScaleX:Number;
 		protected var lastSafeX:Number;

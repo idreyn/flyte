@@ -8,7 +8,7 @@
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
 	
-	import org.flyte.character.*
+	import org.flyte.character.*;
 	import org.flyte.events.GameEvent;
 	import org.flyte.game.*;
 	import org.flyte.hud.*;
@@ -129,7 +129,7 @@
 		public function loadWorld(s:ScrollWorld,h:HUD=null):void
 		{
 			if(h != null) setHUD(h)
-			world=s
+			setWorld(s)
 		}
 		public function setHUD(h:HUD):void
 		{
@@ -141,9 +141,14 @@
 				throw new Error("Flyte Error: the hud property of a Game object must be a class object representing a class that extends org.flyte.hud.HUD");
 			}
 		}
-		public function set world(w:ScrollWorld):void
+		public function retry():void
 		{
-			if (w!=displayed_world)
+			Character.current.lives=Character.current.originLives
+			setWorld(displayed_world,true)
+		}
+		private function setWorld(w:ScrollWorld,force:Boolean=true):void
+		{
+			if (w!=displayed_world || force)
 			{
 				paused=true;
 				displayed_world.dispatchEvent(new GameEvent(GameEvent.UNLOAD_WORLD));

@@ -10,7 +10,9 @@
 	{
 		public function Blizzard()
 		{
+			trace("new Blizzard()")
 			//This is the line that makes Blizzard fly.
+			this.lives=1
 			this.jumpDampingHold=1.05 //0.85
 			this.attackPower=200
 			addEventListener(GameEvent.COLLISION,onCollision);
