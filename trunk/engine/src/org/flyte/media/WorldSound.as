@@ -30,7 +30,6 @@
 		{
 			stransform=new SoundTransform();
 			stransform.pan=((Character.current.x-this._parent.x)/1000)
-			//trace("pan",stransform.pan)
 			var dx:Number=_parent.x-Character.current.x
 			var dy:Number=_parent.y-Character.current.y
 			var distance:Number=Math.sqrt( Math.pow(dx,2) + Math.pow(dy,2))

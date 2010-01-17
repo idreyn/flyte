@@ -29,7 +29,6 @@
 		}
 		private function placeObject(obj:GameObject):void {
 			while (Collision.hitTestShape(this,obj.sensors.right)) {
-				trace("moving you!")
 				obj.x--;
 			}
 			obj.x++;

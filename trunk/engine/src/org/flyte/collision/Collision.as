@@ -41,7 +41,7 @@
 			_c.returnAngle=true
 			_c.returnAngleType="deg"
 			_c.checkCollisions();
-			trace(_c.checkCollisions()[0].angle)
+			return _c.checkCollisions()[0].angle
 		}
 		
 		public static function hitTestShape2(a:DisplayObject,b:DisplayObject):Boolean

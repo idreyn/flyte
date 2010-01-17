@@ -1,21 +1,21 @@
 ﻿
 ﻿package org.flyte.base{
 
+	import caurina.transitions.Tweener;
+	
 	import flash.display.*;
 	import flash.events.Event;
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
-
+	
+	import org.flyte.character.*
 	import org.flyte.events.GameEvent;
+	import org.flyte.game.*;
 	import org.flyte.hud.*;
 	import org.flyte.io.KeyListener;
 	import org.flyte.utils.*;
-	import org.flyte.game.*
 	import org.flyte.world.ScrollWorld;
 
-	import flash.events.KeyboardEvent;
-	import org.flyte.events.GameEvent;
-	import org.flyte.world.ScrollWorld;
 
 	/**
 	 * The Game class is the top level of a Flyte game. Inside it, you can listen for GameEvents,
@@ -57,13 +57,9 @@
 		private var displayed_world:ScrollWorld;
 		private var t:Timer;
 		private var m:Sprite;
-
-		private var _col:Collection
 		protected var level:uint;
 		public function Game()
 		{
-			_col=new Collection();
-			
 			
 			Tracer.out("We're online!");
 			_root=this;
@@ -72,33 +68,54 @@
 			addEventListener(GameEvent.GAME_INIT,onGameInit);
 			addEventListener(GameEvent.INIT_RESET,onInitReset);
 			addEventListener(Event.ENTER_FRAME,onEnterFrame);
+			addEventListener(Event.ADDED_TO_STAGE,onAddedToStage)
 			t=new Timer(1000);
 			t.addEventListener(TimerEvent.TIMER,onTimer);
 			t.start();
-			STAGE_WIDTH=640;
-			STAGE_HEIGHT=480;
-			stageTest=new Sprite();
-			stageTest.graphics.beginFill(0x000000);
-			stageTest.graphics.drawRect(0,0,STAGE_WIDTH,STAGE_HEIGHT);
-			stageTest.alpha=0.0;
-			addChild(stageTest);
+
 
 		}
 		
-		public static function get collection():Collection
+		private function onAddedToStage(e:Event=null):void
 		{
-			return Game._root._col
-		}
-		
-		private function onAdded(e:Event=null):void
-		{
-
+			drawMask()
 		}
 		private function onInitReset(e:GameEvent):void
 		{
 			paused=true;
-			world.reset();
-			paused=false;
+			Tweener.addTween(stageTest,{alpha:1,time:1,onComplete:maskFadeIn_oC})
+			
+	
+		}
+		
+		private function maskFadeIn_oC():void
+		{
+			if(Character.current.lives > 0){
+				world.reset()
+				Tweener.addTween(stageTest,{alpha:0,time:1,onComplete:maskFadeOut_oC})
+			}else{
+				dispatchEvent(new GameEvent(GameEvent.GAME_OVER))
+			}		
+		}
+		
+		private function maskFadeOut_oC():void
+		{
+			paused=false
+		}
+		
+		private function drawMask():Sprite
+		{
+			if(this.stageTest != null){
+				removeChild(stageTest)
+			}
+			STAGE_WIDTH=stage.width
+			STAGE_HEIGHT=stage.height
+			stageTest=new Sprite()
+			stageTest.graphics.beginFill(0x000000)
+			stageTest.graphics.drawRect(0,0,STAGE_WIDTH,STAGE_HEIGHT)
+			addChild(stageTest)
+			return stageTest
+		
 		}
 		private function onTimer(e:TimerEvent):void
 		{
@@ -138,7 +155,6 @@
 				catch (e:Error)
 				{
 				}
-				Game.collection.reset()
 				displayed_world=w;
 				addChild(displayed_world);
 				try
@@ -150,13 +166,15 @@
 				}
 				GameMovieClip.updateRoot(displayed_world);
 				Game.key=displayed_world.key
+				Checkpoint.reset()
+				Tweener.addTween(addChild(stageTest),{time:0.3,alpha:0})
 				displayed_world.dispatchEvent(new GameEvent(GameEvent.LOAD_WORLD));
 				paused=false;
 			}
 		}
 		public function onGameInit(e:GameEvent):void
 		{
-
+			
 		}
 		private function onEnterFrame(e:Event):void
 		{

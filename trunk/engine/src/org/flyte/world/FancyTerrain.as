@@ -144,7 +144,6 @@
 				}
 			}
 			t.y=ly;
-			trace("Can't find ground");
 			return true;
 		}
 

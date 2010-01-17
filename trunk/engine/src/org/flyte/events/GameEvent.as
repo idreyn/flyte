@@ -155,6 +155,7 @@
 		public static const CHARACTER_EXIT:String="gameCharacterExit"
 		public static const ATTACK_COMPLETE:String="gameAttackComplete"
 		public static const HEALTH_LOST:String="gameHealthLost"
+		public static const RESET_COMPLETE:String="gameResetComplete"
 		public var params:Object
 		public function GameEvent(type:String,params:Object=null){
 			super(type)

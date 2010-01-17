@@ -2,6 +2,7 @@
 ﻿package org.flyte.base{
 	import flash.display.*;
 	import flash.events.TimerEvent;
+	import flash.geom.Point;
 	import flash.utils.Timer;
 	
 	import org.flyte.collision.*;
@@ -184,9 +185,19 @@
 				customReset();
 				startListening();
 				action.setAction(action.DEFAULT)
-			
-			
+				dispatchEvent(new GameEvent(GameEvent.RESET_COMPLETE,{from:"GameMovieClip"}))
 		}
+		
+		public function get origin():Point
+		{
+			return new Point(this.originX,this.originY)
+		}
+		
+		public function get position():Point
+		{
+			return new Point(this.x,this.y)
+		}
+		
 		protected function customReset():void {
 
 		}

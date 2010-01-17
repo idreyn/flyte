@@ -49,10 +49,9 @@
 				t.sensors.bottom.scaleX=0.96;
 				var left0:Point=t.sensors.localToGlobal(new Point(t.sensors.leftPoint.x,t.sensors.leftPoint.y));
 				var right0:Point=t.sensors.localToGlobal(new Point(t.sensors.rightPoint.x,t.sensors.rightPoint.y));
-				//this.hitTestPoint(left0.x,left0.y,true) || this.hitTestPoint(right0.x,right0.y,true)
+		
 				if (this.hitTestPoint(left0.x,left0.y,true) || this.hitTestPoint(right0.x,right0.y,true))
 				{
-					trace("collides")
 					if (! collision.isCollisionAt(i,CollisionType.BOTTOM))
 					{
 						collision.setCollisionAt(i,CollisionType.BOTTOM);

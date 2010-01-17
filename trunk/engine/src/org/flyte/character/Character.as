@@ -1,18 +1,16 @@
 ﻿package org.flyte.character
 {
-	import org.flyte.objective.*;
-	import org.flyte.collision.*;
-	import org.flyte.events.*;
-	import org.flyte.display.*;
-	import org.flyte.world.*;
-	import org.flyte.utils.*;
-	import org.flyte.game.*;
+	import flash.geom.Point;
+	
 	import org.flyte.base.*;
+	import org.flyte.collision.*;
+	import org.flyte.display.*;
+	import org.flyte.events.*;
+	import org.flyte.game.*;
 	import org.flyte.io.*;
-	import flash.ui.Keyboard;
-	import flash.events.Event;
-	import flash.events.MouseEvent;
-	import flash.display.MovieClip;
+	import org.flyte.objective.*;
+	import org.flyte.utils.*;
+	import org.flyte.world.*;
 	/**
 	 * A Character is the object that the player controls. The semantics of this class is questionable.
 	 * It really refers to the "hero" of the game. The character's controls can be set with the key property of the current ScrollWorld.
@@ -46,6 +44,7 @@
 			addEventListener(GameEvent.ADDED,added);
 			addEventListener(GameEvent.COLLISION,onCollision);
 			addEventListener(GameEvent.ATTACK_COMPLETE,onAttackComplete);
+			addEventListener(GameEvent.RESET_COMPLETE,onResetComplete)
 			Game._root.world.character=this;
 			Game._root.world.dispatchEvent(new GameEvent(GameEvent.CHARACTER_FOUND));
 			Game._root.world.addEventListener(GameEvent.RESET_LEVEL,onResetLevelE);
@@ -72,6 +71,13 @@
 			dead=false;
 			attackWaiting=false;
 			attacking=false;
+		}
+		
+		private function onResetComplete(e:GameEvent):void
+		{
+			var pos:Point=Checkpoint.getPosition()
+			this.x=pos.x
+			this.y=pos.y
 		}
 		private function onCollision(e:GameEvent):void
 		{
