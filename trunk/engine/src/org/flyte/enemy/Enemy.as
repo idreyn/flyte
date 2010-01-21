@@ -26,8 +26,8 @@
 		}
 		private function onAdded(e:GameEvent):void
 		{
-			Game._root.world.addEventListener(GameEvent.RESET_LEVEL,onResetLevel);
-			Game._root.addEventListener(GameEvent.LOOP,onLoopE);
+			world.addEventListener(GameEvent.RESET_LEVEL,onResetLevel);
+			world.addEventListener(GameEvent.LOOP,onLoopE);
 			velocityX=speed*(this.x>Character.current.x?-1:1);
 		}
 		private function ohit(e:GameEvent):void
@@ -44,7 +44,7 @@
 		}
 		private function onDetermineRestriction(e:GameEvent):void
 		{
-			Game._root.addEventListener(GameEvent.LOOP,onLoopE);
+			world.addEventListener(GameEvent.LOOP,onLoopE);
 		}
 		private function checkPosition(e:GameEvent):void
 		{

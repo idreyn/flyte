@@ -4,7 +4,6 @@
 	
 	import flash.display.*;
 	import flash.events.MouseEvent;
-	import flash.events.ProgressEvent;
 	import flash.geom.Rectangle;
 	
 	import org.flyte.base.*;
@@ -86,6 +85,7 @@
 		 * A static array of all the ScrollWorlds in the flash file.
 		 */
 		public static var enum:Array=new Array();
+		private var dispatching:Boolean=false
 		public function ScrollWorld() {
 			enum.push(this);
 			//Constructor. No, really.
@@ -99,6 +99,7 @@
 			addEventListener(GameEvent.ADDED,onAdded);
 			//Add an event listener that triggers when the Game loads this ScrollWorld
 			addEventListener(GameEvent.LOAD_WORLD,onLoadWorld);
+			addEventListener(GameEvent.UNLOAD_WORLD,onUnloadWorld)
 			//Mouse listeners
 			addEventListener(GameEvent.CHARACTER_FOUND,foundCharacter);
 			addEventListener(MouseEvent.MOUSE_DOWN,onMouseDown);
@@ -110,9 +111,11 @@
 		 * @return  Returns the index of the current ScrollWorld in the ScrollWorld.enum array.
 		 * 
 		 */
-		public static function get currentIndex():uint {
-			return enum.indexOf(Game._root.world);
-		}
+		 
+		 private function onUnloadWorld(e:GameEvent):void
+		 {
+		 	dispatching=false
+		 }
 		private function setWorldOfAllChildMovieClips(g:*):void {
 			if (g is GameMovieClip) {
 				GameMovieClip(g).myWorld=this;
@@ -138,6 +141,9 @@
 
 		}
 		private function onLoopE(e:GameEvent):void {
+			if(dispatching && !Game._root.paused){
+				dispatchEvent(new GameEvent(GameEvent.LOOP))
+			}
 			if ((Character.current.y>bottomBoundary || Character.current.lives==0) && !Game._root.paused) {
 				Character.current.doDie();
 			}
@@ -151,6 +157,7 @@
 		private function onLoadWorld(e:GameEvent):void {
 			Game._root.addEventListener(GameEvent.LOOP,onLoopE);
 			Character.current=this.character;
+			dispatching=true
 			GameObject.setEnum(this);
 
 		}

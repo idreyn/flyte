@@ -53,12 +53,12 @@
 		
 		public static function get camera():GameCamera
 		{
-			return Game._root.world.camera
+			return world.camera
 		}
 
 		public static function get world():ScrollWorld
 		{
-			return Game._root.world;
+			return world;
 		}
 		/**
 		 * Disorient the player by instantly sending the Character to the specified checkpoint.

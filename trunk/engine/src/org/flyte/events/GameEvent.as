@@ -27,7 +27,7 @@
 		public static const ADDED:String="gameAdded"
 		/**
 		 * The event dispatched by a ScrollWorld when it determines that it contains a Character object.
-		 * It's worth noting that the Character object actually does this by calling Game._root.world.
+		 * It's worth noting that the Character object actually does this by calling world.
 		 * @see org.flyte.world.ScrollWorld
 		 * @see org.flyte.character.Character
 		 */
@@ -156,6 +156,7 @@
 		public static const ATTACK_COMPLETE:String="gameAttackComplete"
 		public static const HEALTH_LOST:String="gameHealthLost"
 		public static const RESET_COMPLETE:String="gameResetComplete"
+		public static const READY:String="gameReady"
 		public var params:Object
 		public function GameEvent(type:String,params:Object=null){
 			super(type)

@@ -83,7 +83,7 @@
 		}
 		private function onAdded(e:GameEvent):void {
 			if (getLabels().length>1) {
-				Game._root.addEventListener(GameEvent.LOOP,loop);
+				g.world.addEventListener(GameEvent.LOOP,loop);
 			}
 		}
 		/**
@@ -134,6 +134,7 @@
 				}
 
 			}
+		g.gotoAndStop(1)
 		}
 		/**
 		 * Sets the active property of all mapped actions to false. Useful so GameMovieClips don't get caught in limbo when a ScrollWorld resets.

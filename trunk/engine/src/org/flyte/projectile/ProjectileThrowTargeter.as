@@ -22,11 +22,11 @@
 		private function onAdded(e:GameEvent):void
 		{
 			var projectile:Projectile=new c();
-			var p:Point=Game._root.world.globalToLocal(parent.localToGlobal(new Point(this.x,this.y)))
-			projectile.go(500,GameMovieClip(parent.parent).scaleX>0?-180:180,2,Game._root.world)
+			var p:Point=world.globalToLocal(parent.localToGlobal(new Point(this.x,this.y)))
+			projectile.go(500,GameMovieClip(parent.parent).scaleX>0?-180:180,2,world)
 			projectile.x=p.x
 			projectile.y=p.y
-			Game._root.world.addChild(projectile as Projectile)
+			world.addChild(projectile as Projectile)
 		}
 	}
 }

@@ -3,7 +3,7 @@
 	import flash.events.*;
 	import org.flyte.base.*;
 	import org.flyte.events.*;
-	public class BackgroundObject extends MovieClip {
+	public class BackgroundObject extends GameMovieClip {
 		private var _level:uint;
 		private var _originX:Number;
 		private var _originY:Number;
@@ -31,8 +31,8 @@
 		}
 		private function enterFrame(e:Event):void {
 
-			if(moveX) this.x=_originX+((Game._root.world.x)/_level)*4;
-			if(moveY) this.y=_originY+((Game._root.world.y)/_level)*4;
+			if(moveX) this.x=_originX+((world.x)/_level)*4;
+			if(moveY) this.y=_originY+((world.y)/_level)*4;
 		}
 		public function set level(i:uint):void {
 			if (i>0) {

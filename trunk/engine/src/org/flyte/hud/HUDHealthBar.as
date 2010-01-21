@@ -19,7 +19,7 @@
 		
 		private function onAdded(e:GameEvent):void
 		{
-			Character.current.addEventListener(GameEvent.HEALTH_LOST,onCharacterHit);
+			world.character.addEventListener(GameEvent.HEALTH_LOST,onCharacterHit);
 		}
 		private function onCharacterHit(e:GameEvent):void
 		{

@@ -19,13 +19,17 @@ package org.flyte.game
 		public function Checkpoint()
 		{
 			Checkpoint.enum.push(this)
-			addLoopListener(onLoop)
 			addEventListener(GameEvent.DEACTIVATE,onDeactivateRemote)
 			addEventListener(GameEvent.RESET_COMPLETE,onResetComplete)
 			action.mapAction(Action.STILL,"still",nothing)
 			action.mapAction(Action.ACTIVATE,"activate",nothing,false,false)
 			action.setDefault(Action.STILL)
 			action.setAction(Action.STILL)
+		}
+		
+		private function onAdded(e:GameEvent):void
+		{
+			addLoopListener(onLoop)
 		}
 		
 		private function onLoop(e:GameEvent):void

@@ -470,7 +470,7 @@
 				if (falling)
 				{
 					this.y+=velocityY
-					this.velocityY+=Game._root.world.gravity;
+					this.velocityY+=world.gravity;
 					
 				}
 			}
@@ -478,8 +478,8 @@
 		private function onAdded(e:GameEvent):void
 		{
 			addLoopListener(onLoop)
-			Game._root.addEventListener(GameEvent.LOOP,checkChange);
-			Game._root.world.addEventListener(GameEvent.RESET_LEVEL,onResetLevelE);
+			world.addEventListener(GameEvent.LOOP,checkChange);
+			world.addEventListener(GameEvent.RESET_LEVEL,onResetLevelE);
 			getPossibleAttacks();
 			healthBar.place()
 		}
@@ -501,7 +501,7 @@
 			enum.length=0;
 			for(var i:uint=0; i<tEnum.length; i++)
 			{
-				if (tEnum[i].myWorld==w)
+				if (tEnum[i].world==w)
 				{
 					enum.push(tEnum[i]);
 				}

@@ -68,7 +68,9 @@
 		 * Subclasses of GameMovieClip generally make use of this property.
 		 */
 		public var resettable:Boolean=true;
+		private var loopQueue:Array
 		public function GameMovieClip() {
+			loopQueue=new Array()
 			enum.push(this);
 			t=new Timer(10);
 			t.addEventListener(TimerEvent.TIMER,onTimer);
@@ -83,20 +85,25 @@
 		/**
 		 * Adds an event listener for GameEvent.LOOP that calls the function f.
 		 * The same as calling
-		 * <listing version="3.0">Game._root.addEventListener(GameEvent.LOOP,f)</listing>
+		 * <listing version="3.0">world.addEventListener(GameEvent.LOOP,f)</listing>
 		 * @see org.flyte.events.GameEvent
 		 */
 		public function addLoopListener(f:Function):void {
-			Game._root.addEventListener(GameEvent.LOOP,f);
+			trace("world",world,this)
+			if(world == null){
+				loopQueue.push(f)
+			}else{
+				world.addEventListener(GameEvent.LOOP,f);
+			}
 		}
 		/**
 		 * Adds an event listener for GameEvent.RESET_LEVEL that calls the function f.
 		 * The same as calling
-		 * <listing version="3.0">Game._root.world.addEventListener(GameEvent.RESET_LEVEL,f)</listing>
+		 * <listing version="3.0">world.addEventListener(GameEvent.RESET_LEVEL,f)</listing>
 		 * @see org.flyte.events.GameEvent
 		 */
 		public function addResetListener(f:Function):void {
-			Game._root.world.addEventListener(GameEvent.RESET_LEVEL,f);
+			world.addEventListener(GameEvent.RESET_LEVEL,f);
 		}
 		
 		public function collides(d:DisplayObject):Boolean
@@ -155,17 +162,25 @@
 		}
 		private function onTimer(e:TimerEvent):void {
 			t.stop();
-			this.dispatchEvent(new GameEvent(GameEvent.ADDED));
+			this.world=Game._root.world
 			addEventListener(GameEvent.ADDED,onAdded);
+			this.dispatchEvent(new GameEvent(GameEvent.ADDED));
+			addLoopQueue();
 			if (! this is ScrollWorld) {
-				Game._root.addEventListener(GameEvent.LOOP,checkOnstage);
+				world.addEventListener(GameEvent.LOOP,checkOnstage);
 			}
-			Game._root.addEventListener(GameEvent.LOOP,removeChildren);
-			Game._root.addEventListener(GameEvent.LOOP,onLoop);
-			Game._root.world.addEventListener(GameEvent.RESET_LEVEL,onResetLevel);
+			world.addEventListener(GameEvent.LOOP,removeChildren);
+			world.addEventListener(GameEvent.LOOP,onLoop);
+			world.addEventListener(GameEvent.RESET_LEVEL,onResetLevel);
+		}
+		
+		private function addLoopQueue():void
+		{
+			for(var i:uint=0;i<loopQueue.length;i++){
+				addLoopListener(loopQueue[i])
+			}
 		}
 		private function onLoop(e:GameEvent):void {
-
 		}
 		protected function stopListening():void {
 			//Game._root.removeEventListener(GameEvent.LOOP,onLoop);
@@ -174,7 +189,7 @@
 		private function onAdded(e:GameEvent):void {
 		}
 		protected function startListening():void {
-			Game._root.addEventListener(GameEvent.LOOP,onLoop);
+			world.addEventListener(GameEvent.LOOP,onLoop);
 			this.visible=true;
 		}
 		private function onResetLevel(e:GameEvent):void {

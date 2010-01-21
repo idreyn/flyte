@@ -63,8 +63,6 @@
 			
 			Tracer.out("We're online!");
 			_root=this;
-			displayed_world=new ScrollWorld();
-			addChild(displayed_world);
 			addEventListener(GameEvent.GAME_INIT,onGameInit);
 			addEventListener(GameEvent.INIT_RESET,onInitReset);
 			addEventListener(Event.ENTER_FRAME,onEnterFrame);
@@ -151,8 +149,10 @@
 			if (w!=displayed_world || force)
 			{
 				paused=true;
-				displayed_world.dispatchEvent(new GameEvent(GameEvent.UNLOAD_WORLD));
-				removeChild(displayed_world);
+				if(displayed_world != null){
+					displayed_world.dispatchEvent(new GameEvent(GameEvent.UNLOAD_WORLD));
+					removeChild(displayed_world);
+				}
 				try
 				{
 					removeChild(_hud);
@@ -173,6 +173,7 @@
 				Game.key=displayed_world.key
 				Checkpoint.reset()
 				Tweener.addTween(addChild(stageTest),{time:0.3,alpha:0})
+				trace(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>GameEvent.LOAD_WORLD")
 				displayed_world.dispatchEvent(new GameEvent(GameEvent.LOAD_WORLD));
 				paused=false;
 			}

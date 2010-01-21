@@ -44,7 +44,7 @@
 		private function onAdded(e:GameEvent):void
 		{
 			determineRestrictionZone();
-			Game._root.addEventListener(GameEvent.LOOP,onLoopE);
+			world.addEventListener(GameEvent.LOOP,onLoopE);
 		}
 		private function determineRestrictionZone():void
 		{

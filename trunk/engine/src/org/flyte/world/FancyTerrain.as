@@ -1,12 +1,13 @@
 ﻿package org.flyte.world
 {
+	import flash.display.*;
+	import flash.geom.*;
+	
 	import org.flyte.base.*;
 	import org.flyte.collision.*;
-	import org.flyte.utils.*;
 	import org.flyte.events.GameEvent;
 	import org.flyte.game.*;
-	import flash.geom.*;
-	import flash.display.*;
+	import org.flyte.utils.*;
 	/**
 	 * A Terrain object represents something that GameObjects can walk on that may not
 	 * be perfectly flat. If you want to make a hill for your character to climb, you would
@@ -36,6 +37,11 @@
 			collision=new CollisionDictionary();
 			enum.push(this);
 			Standable.enum.push(this);
+			addEventListener(GameEvent.ADDED,onAdded)
+		}
+		
+		private function onAdded(e:GameEvent):void
+		{
 			addLoopListener(onLoop);
 		}
 		protected override function customReset():void

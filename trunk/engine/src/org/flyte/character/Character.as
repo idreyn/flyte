@@ -22,7 +22,7 @@
 	{
 		/**
 		 * A reference to the Character in the current ScrollWorld.
-		 * Identical to calling Game._root.world.character, but with a lot
+		 * Identical to calling world.character, but with a lot
 		 * less carpal tunnel syndrome.
 		 * @see org.flyte.world.ScrollWorld
 		 */
@@ -45,18 +45,22 @@
 			addEventListener(GameEvent.COLLISION,onCollision);
 			addEventListener(GameEvent.ATTACK_COMPLETE,onAttackComplete);
 			addEventListener(GameEvent.RESET_COMPLETE,onResetComplete)
-			Game._root.world.character=this;
-			Game._root.world.dispatchEvent(new GameEvent(GameEvent.CHARACTER_FOUND));
-			Game._root.world.addEventListener(GameEvent.RESET_LEVEL,onResetLevelE);
+			
+
 			this.healthBar.visible=false;
 			//this.sensors.alpha=1
 		}
 		protected function added(e:GameEvent):void
 		{
+			world.character=this;
 			world.key.addEventListener(GameEvent.KEY_DOWN,keyDown);
 			world.key.addEventListener(GameEvent.KEY_UP,keyUp);
+			world.dispatchEvent(new GameEvent(GameEvent.CHARACTER_FOUND));
+			world.addEventListener(GameEvent.RESET_LEVEL,onResetLevelE);
 			
 		}
+		
+
 		private function onAttackComplete(e:GameEvent):void
 		{
 			attackWaiting=true;

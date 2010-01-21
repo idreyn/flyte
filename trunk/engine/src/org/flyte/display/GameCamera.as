@@ -21,6 +21,11 @@
 		public var easeY:Number=0.2;
 		public var distance:Number=1
 		public function GameCamera() {
+			addEventListener(GameEvent.ADDED,onAdded)
+		}
+		
+		private function onAdded(e:GameEvent):void
+		{
 			addLoopListener(onLoop)
 		}
 		public function follow(g:GameMovieClip):void {
