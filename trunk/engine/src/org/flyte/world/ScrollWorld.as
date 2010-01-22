@@ -86,7 +86,11 @@
 		 */
 		public static var enum:Array=new Array();
 		private var dispatching:Boolean=false
+		public var gameObjectEnum:Array
+		public var standableEnum:Array
 		public function ScrollWorld() {
+			gameObjectEnum=new Array()
+			standableEnum=new Array()
 			enum.push(this);
 			//Constructor. No, really.
 			setWorldOfAllChildMovieClips(this);
@@ -104,6 +108,7 @@
 			addEventListener(GameEvent.CHARACTER_FOUND,foundCharacter);
 			addEventListener(MouseEvent.MOUSE_DOWN,onMouseDown);
 			addEventListener(MouseEvent.MOUSE_UP,onMouseUp);
+			
 		}
 		
 		/**
@@ -136,8 +141,7 @@
 
 		private function onAdded(e:GameEvent):void {
 			//This code is called when the ScrollWorld is added to the display list.
-			bottomBoundary=7000
-			;
+			bottomBoundary=this.getBounds(parent).bottom
 
 		}
 		private function onLoopE(e:GameEvent):void {
@@ -156,9 +160,7 @@
 		}
 		private function onLoadWorld(e:GameEvent):void {
 			Game._root.addEventListener(GameEvent.LOOP,onLoopE);
-			Character.current=this.character;
 			dispatching=true
-			GameObject.setEnum(this);
 
 		}
 		protected function keyUp(e:GameEvent):void {

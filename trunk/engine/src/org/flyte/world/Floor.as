@@ -1,10 +1,10 @@
 ﻿package org.flyte.world
 {
+	import flash.geom.*;
+	
 	import org.flyte.base.*;
-	import org.flyte.events.*;
-	import org.flyte.world.*;
 	import org.flyte.collision.*;
-	import flash.geom.*
+	import org.flyte.events.*;
 	public class Floor extends Surface
 	{
 		public var jumpHeight:Number;
@@ -46,7 +46,8 @@
 					{
 						touching[i]=true;
 						t.dispatchEvent(new GameEvent(GameEvent.JUMP,{bounce:this.bounce}));
-						dispatchEvent(new GameEvent(GameEvent.ENTER_PLATFORM,{index:i}));
+						dispatchEvent(new GameEvent(GameEvent.ENTER_PLATFORM,{index:i,object:t}))
+						parent.dispatchEvent(new GameEvent(GameEvent.ENTER_PLATFORM,{index:i,object:t}))
 						t.dispatchEvent(new GameEvent(GameEvent.COLLISION,{type:this.type,sender:this,rebound:this.bounce,bounce:this.bounce,bounceX:this.bounceX,jumpHeight:this.jumpHeight,friction:this.friction}));
 					}
 				} else

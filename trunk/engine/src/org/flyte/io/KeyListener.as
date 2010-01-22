@@ -1,20 +1,29 @@
 ﻿package org.flyte.io{
-	import org.flyte.events.*;
-	import org.flyte.base.*;
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
-	import flash.ui.Keyboard;
+	
+	import org.flyte.base.*;
+	import org.flyte.events.*;
 	public class KeyListener extends GameMovieClip {
 		private var keyList:Array=new Array();
 		public function KeyListener() {
 			this.addEventListener(GameEvent.ADDED,onAdded);
+			
 		}
-		private function onAdded(event:Event):void {
-			Game._root.stage.addEventListener(KeyboardEvent.KEY_DOWN,keyDown);
-			Game._root.stage.addEventListener(KeyboardEvent.KEY_UP,keyUp);
+		private function onAdded(event:Event=null):void {
+			world.addEventListener(GameEvent.LOAD_WORLD,onAdded)
+			world.addEventListener(GameEvent.UNLOAD_WORLD,onUnloadWorld)
+			world.stage.addEventListener(KeyboardEvent.KEY_DOWN,keyDown);
+			world.stage.addEventListener(KeyboardEvent.KEY_UP,keyUp);
 			for(var i:uint=0; i<255; i++) {
 				keyList[i]=false;
 			}
+		}
+		
+		private function onUnloadWorld(e:GameEvent):void
+		{
+			world.stage.removeEventListener(KeyboardEvent.KEY_DOWN,keyDown);
+			world.stage.removeEventListener(KeyboardEvent.KEY_UP,keyUp);
 		}
 		private function keyDown(event:KeyboardEvent):void {
 			keyList[event.keyCode]=true;

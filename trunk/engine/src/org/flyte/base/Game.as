@@ -144,6 +144,11 @@
 			Character.current.lives=Character.current.originLives
 			setWorld(displayed_world,true)
 		}
+		private function clearEnum():void
+		{
+
+			
+		}
 		private function setWorld(w:ScrollWorld,force:Boolean=true):void
 		{
 			if (w!=displayed_world || force)
@@ -160,6 +165,7 @@
 				catch (e:Error)
 				{
 				}
+				clearEnum()
 				displayed_world=w;
 				addChild(displayed_world);
 				try
@@ -172,11 +178,21 @@
 				GameMovieClip.updateRoot(displayed_world);
 				Game.key=displayed_world.key
 				Checkpoint.reset()
-				Tweener.addTween(addChild(stageTest),{time:0.3,alpha:0})
-				trace(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>GameEvent.LOAD_WORLD")
+				world.addEventListener(GameEvent.ADDED,reveal)
 				displayed_world.dispatchEvent(new GameEvent(GameEvent.LOAD_WORLD));
+				dispatchEvent(new GameEvent(GameEvent.LOAD))
 				paused=false;
 			}
+		}
+		
+		private function reveal(e:GameEvent=null):void
+		{
+			Tweener.addTween(addChild(stageTest),{time:0.3,alpha:0})
+		}
+		
+		public function fadeToPause():void
+		{
+			Tweener.addTween(addChild(stageTest),{time:1,alpha:1,onComplete:pause})
 		}
 		public function onGameInit(e:GameEvent):void
 		{

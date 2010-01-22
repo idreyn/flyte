@@ -1,13 +1,12 @@
 ﻿package org.flyte.item
 {
 	import org.flyte.base.GameMovieClip;
-	import org.flyte.item.*;
-	import org.flyte.objective.*;
-	import org.flyte.events.*;
-	import org.flyte.collision.*;
 	import org.flyte.character.*;
+	import org.flyte.collision.*;
 	import org.flyte.display.*;
-	public class Collectible extends GameMovieClip
+	import org.flyte.events.*;
+	import org.flyte.objective.*;
+	public dynamic class Collectible extends GameMovieClip
 	{
 		public var collected:Boolean=false;
 		public var permanent:Boolean=false;
@@ -16,7 +15,7 @@
 		public function Collectible()
 		{
 			action.mapAction(Action.STILL,"still",nothing);
-			action.mapAction(Action.DESTROY,"destroy",destroy);
+			action.mapAction(Action.DESTROY,"destroy",_destroy);
 			action.setDefault(Action.STILL);
 			action.setAction(Action.STILL);
 			addLoopListener(onLoop);
@@ -44,12 +43,12 @@
 		{
 			if (Collision.hitTestShape(this,Character.current)&&! collected)
 			{
-				dispatchEvent(new GameEvent(GameEvent.COLLECTED));
+				dispatchEvent(new GameEvent(GameEvent.COLLECTED));				
 				action.setAction(Action.DESTROY);
 				collected=true;
 			}
 		}
-		protected function destroy():void
+		private function _destroy():void
 		{
 			if (permanent)
 			{
@@ -69,5 +68,6 @@
 				visible=false;
 			}
 		}
+		
 	}
 }

@@ -11,17 +11,17 @@
 	
 	public class ProjectileThrowTargeter extends GameMovieClip
 	{
-		public var c:Class
+		public var className:Class
 		public function ProjectileThrowTargeter()
 		{
 			visible=false
-			c=flash.utils.getDefinitionByName(this.name.slice(this.name.indexOf("_")+1,this.name.length)) as Class
+			className=flash.utils.getDefinitionByName(this.name.slice(this.name.indexOf("_")+1,this.name.length)) as Class
 			addEventListener(GameEvent.ADDED,onAdded);
 		}
 		
 		private function onAdded(e:GameEvent):void
 		{
-			var projectile:Projectile=new c();
+			var projectile:Projectile=new className();
 			var p:Point=world.globalToLocal(parent.localToGlobal(new Point(this.x,this.y)))
 			projectile.go(500,GameMovieClip(parent.parent).scaleX>0?-180:180,2,world)
 			projectile.x=p.x

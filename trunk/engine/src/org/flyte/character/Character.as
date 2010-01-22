@@ -26,7 +26,6 @@
 		 * less carpal tunnel syndrome.
 		 * @see org.flyte.world.ScrollWorld
 		 */
-		public static var current:Character;
 		private var stuckToTerrain:Boolean=false;
 		protected var attackInterval:uint=5;
 		protected var attackWaiting:Boolean;
@@ -102,6 +101,11 @@
 
 				//this.action.currentActionMovie.scaleX=_md
 
+		}
+		
+		public static function get current():Character
+		{
+			return Game._root.world.character
 		}
 		protected override function customActions():void
 		{

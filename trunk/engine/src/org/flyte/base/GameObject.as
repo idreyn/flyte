@@ -1,17 +1,16 @@
 ﻿package org.flyte.base
 {
 	import flash.display.*;
-	import flash.geom.*
+	import flash.geom.*;
 	
 	import org.flyte.character.*;
 	import org.flyte.collision.*;
 	import org.flyte.display.*;
 	import org.flyte.events.*;
 	import org.flyte.game.*;
+	import org.flyte.io.*;
 	import org.flyte.objective.*;
 	import org.flyte.utils.*;
-	import org.flyte.io.*
-	import org.flyte.world.ScrollWorld;
 	/**
 	 * The GameObject class represents any GameMovieClip that is subject to collisions and gravity.
 	 * Unless you plan on deviating from the classic elements of platformer gameplay (enemies, collectibles, hazards, etc),
@@ -118,7 +117,8 @@
 		 public var showHealthBar:Boolean=true
 		public var hurting:Boolean=false;
 		public var jumpDamping:Number=0.8
-		public var jumpDampingHold:Number=0.9
+		public var jumpDampingHold:Number=0.83
+		public var pushPower:Number=1.5
 		protected var collisions:Object;
 		private var jump:Number=0;
 		private var _bounds:Rectangle
@@ -147,8 +147,6 @@
 		private var tryDoDie:Boolean=false;
 		private var pushVelocity:Number=0;
 		protected var jumpReleased:Boolean=false
-		public static var enum:Array=new Array();
-		private static var tEnum:Array=new Array();
 		public function GameObject()
 		{
 			stop();
@@ -156,7 +154,6 @@
 			lastSafeX=this.x;
 			lastSafeY=this.y;
 			originalScaleX=this.scaleX;
-			tEnum.push(this);
 			collisions=new Object();
 			collisions.right=0;
 			collisions.left=0;
@@ -172,10 +169,16 @@
 			addEventListener(GameEvent.END_COLLISION,registerCollisionEnd);
 			addEventListener(GameEvent.JUMP,do_jump);
 			addEventListener(GameEvent.HIT,onHit);
+			addEventListener(GameEvent.LOAD_WORLD,onLoadWorld)
 			healthBar=new HealthBar(25/scaleX,5/scaleX,0x009932,this);
 			this.addChild(healthBar);
 			healthBar.visible=showHealthBar && destroyable;
 			this.blendMode=BlendMode.LAYER;
+		}
+		
+		private function onLoadWorld(e:GameEvent):void
+		{
+			dispatchGameEvent(GameEvent.HEALTH)
 		}
 		/**
 		 *The direction the GameObject is moving as an integer: -1 for left, 0 for still, 1 for right.
@@ -185,6 +188,11 @@
 		public function get movementDirection():int
 		{
 			return velocityX==0?0:velocityX>0?1:-1;
+		}
+		
+		public static function get enum():Array
+		{
+			return Game._root.world.gameObjectEnum
 		}
 		protected override function mapActions():void
 		{
@@ -231,6 +239,7 @@
 		}
 		protected function onDie():void
 		{
+			dispatchEvent(new GameEvent(GameEvent.DIE))
 			this.velocityX=0;
 			dead=true;
 			stopListening();
@@ -253,7 +262,6 @@
 
 		protected function attack():void
 		{
-			
 			if (! action.actionInProgress(Action.ATTACK)&&! dead)
 			{
 				addLoopListener(attackLoop);
@@ -310,13 +318,13 @@
 				{
 					health-=e.params.damage;
 					healthBar.setValue(health);
-					push(e.params.velocity);
+					push(e.params.velocity*pushPower)
 					
 					
 					
 					hurting=true;
 					flashThis(25,2);
-					dispatchGameEvent(GameEvent.HEALTH_LOST)
+					dispatchGameEvent(GameEvent.HEALTH)
 				} else
 				{
 
@@ -340,9 +348,11 @@
 			this.flying=false;
 			this.falling=true;
 			this.health=100;
+			dispatchGameEvent(GameEvent.HEALTH)
 			healthBar.setValue(health);
 			action.active=false;
 			this.attacking=false;
+			this.hurting=false
 			this.tryDoDie=false;
 		}
 		protected function registerCollision(e:GameEvent):void
@@ -477,10 +487,12 @@
 		}
 		private function onAdded(e:GameEvent):void
 		{
+			enum.push(this)
 			addLoopListener(onLoop)
 			world.addEventListener(GameEvent.LOOP,checkChange);
 			world.addEventListener(GameEvent.RESET_LEVEL,onResetLevelE);
 			getPossibleAttacks();
+			dispatchGameEvent(GameEvent.HEALTH)
 			healthBar.place()
 		}
 		public function flashThis(duration:uint,update:uint):void
@@ -496,17 +508,7 @@
 		 * @param w The Scrollworld whose GameObjects will populate GameObject.enum
 		 * 
 		 */
-		public static function setEnum(w:ScrollWorld):void
-		{
-			enum.length=0;
-			for(var i:uint=0; i<tEnum.length; i++)
-			{
-				if (tEnum[i].world==w)
-				{
-					enum.push(tEnum[i]);
-				}
-			}
-		}
+		 
 		protected function checkChange(e:GameEvent):void
 		{
 			changeX=this.x-lastX;
@@ -534,7 +536,7 @@
 			}
 			if(flashElapsed >= flashDuration)
 			{
-				Game._root.removeEventListener(GameEvent.LOOP,onLoopFlash);
+				world.removeEventListener(GameEvent.LOOP,onLoopFlash);
 				this.alpha=1;
 				flashElapsed=0;
 				hurting=false;

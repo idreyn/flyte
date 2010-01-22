@@ -3,7 +3,7 @@
 	import org.flyte.base.*;
 	import org.flyte.objective.*;
 	import org.flyte.events.*;
-	public class AccessItem extends Collectible {
+	public dynamic class AccessItem extends Collectible {
 		public var target:GameMovieClip;
 		public var hasTarget:Boolean=false;
 		public function AccessItem() {

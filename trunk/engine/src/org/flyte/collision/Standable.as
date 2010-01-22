@@ -1,5 +1,5 @@
 ﻿package org.flyte.collision{
-	import org.flyte.base.GameMovieClip;
+	import org.flyte.base.*;
 	/**
 	 * The Standable class just holds an array of all the Terrain and Surface objects in the game.
 	 * @author Ian Reynolds
@@ -9,7 +9,10 @@
 		/**
 		 * An array of all the Terrain and Surface objects in the game.
 		 */
-		public static var enum:Array=new Array();
+		public static function get enum():Array
+		{
+			return Game._root.world.standableEnum
+		}
 		/**
 		 * The amount of friction a GameObject encounters when trying to walk on this bad boy.
 		 * @see org.flyte.base.GameObject

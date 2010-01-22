@@ -69,8 +69,11 @@
 		 */
 		public var resettable:Boolean=true;
 		private var loopQueue:Array
-		public function GameMovieClip() {
+		private var resetQueue:Array
+		public function GameMovieClip(s:ScrollWorld=null) {
+			this.world=s
 			loopQueue=new Array()
+			resetQueue=new Array()
 			enum.push(this);
 			t=new Timer(10);
 			t.addEventListener(TimerEvent.TIMER,onTimer);
@@ -89,7 +92,6 @@
 		 * @see org.flyte.events.GameEvent
 		 */
 		public function addLoopListener(f:Function):void {
-			trace("world",world,this)
 			if(world == null){
 				loopQueue.push(f)
 			}else{
@@ -103,7 +105,12 @@
 		 * @see org.flyte.events.GameEvent
 		 */
 		public function addResetListener(f:Function):void {
-			world.addEventListener(GameEvent.RESET_LEVEL,f);
+			if(world==null)
+			{
+				this.resetQueue.push(f)
+			}else{
+				world.addEventListener(GameEvent.RESET_LEVEL,f);
+			}
 		}
 		
 		public function collides(d:DisplayObject):Boolean
@@ -165,7 +172,7 @@
 			this.world=Game._root.world
 			addEventListener(GameEvent.ADDED,onAdded);
 			this.dispatchEvent(new GameEvent(GameEvent.ADDED));
-			addLoopQueue();
+			addQueue();
 			if (! this is ScrollWorld) {
 				world.addEventListener(GameEvent.LOOP,checkOnstage);
 			}
@@ -174,10 +181,13 @@
 			world.addEventListener(GameEvent.RESET_LEVEL,onResetLevel);
 		}
 		
-		private function addLoopQueue():void
+		private function addQueue():void
 		{
 			for(var i:uint=0;i<loopQueue.length;i++){
 				addLoopListener(loopQueue[i])
+			}
+			for(i=0;i<resetQueue.length;i++){
+				addResetListener(resetQueue[i])
 			}
 		}
 		private function onLoop(e:GameEvent):void {

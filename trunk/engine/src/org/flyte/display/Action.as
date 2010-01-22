@@ -36,6 +36,7 @@
 		public static const DEACTIVATE:String="actionDeactivate"
 		public static const ACTIVATE:String="actionActivate"
 		public static const NORMAL:String="actionNormal"
+		public static const COLLECT:String="actionCollect"
 		/**
 		 * A boolean value determining whether the action will loop until its parent calls action.setAction() again.
 		 */

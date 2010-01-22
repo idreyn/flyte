@@ -64,7 +64,6 @@
 				}
 			} else
 			{
-
 				for (var i:uint=0; i<Standable.enum.length; i++)
 				{
 					var t:GameMovieClip=Standable.enum[i];

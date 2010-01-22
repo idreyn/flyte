@@ -10,7 +10,7 @@
 		private function onLoop(e:GameEvent):void {
 			checkCollisions();
 		}
-		public function checkCollisions():void {
+		private function checkCollisions():void {
 			for (var i:uint=0; i<GameObject.enum.length; i++) {
 				var t:GameObject=GameObject.enum[i];
 				if (Collision.hitTestShape(this,t.sensors.top)) {

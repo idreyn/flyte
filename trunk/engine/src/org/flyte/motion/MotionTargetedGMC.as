@@ -21,7 +21,7 @@
 			if (findMotionTarget()) {
 				hasTarget=true;
 				if(activated){
-					startMotion(motionTarget);
+					startMotion();
 				}
 			} else {
 				hasTarget=false;
@@ -29,11 +29,12 @@
 		}
 		public function activate():void{
 			if(hasTarget){
-				startMotion(motionTarget)
+				startMotion()
 			}
 		}
-		private function startMotion(m:MotionTarget):void {
+		public function startMotion():void {
 			velocityX=3
+			var m:MotionTarget=this.motionTarget
 			if(!time>0) time=Math.sqrt(Math.pow(m.x-this.x,2)+Math.pow(m.y-this.y,2))/velocityX/stage.frameRate;
 			Tweener.addTween(this,{x:m.x,y:m.y,time:this.time,onComplete:tweenComplete,transition:tweenType})
 		}
@@ -45,6 +46,12 @@
 		private function startAgain():void
 		{
 			Tweener.addTween(this,{x:motionTarget.x,y:motionTarget.y,time:this.time,onComplete:tweenComplete,transition:tweenType})
+		}
+		
+		public function stopMotion():void
+		{
+			Tweener.removeTweens(this)
+			Tweener.addTween(this,{x:this.originX,y:this.originY,time:1,transition:tweenType})
 		}
 			
 

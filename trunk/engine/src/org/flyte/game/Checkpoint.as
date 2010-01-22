@@ -1,4 +1,4 @@
-package org.flyte.game
+﻿package org.flyte.game
 {
 	import flash.geom.Point;
 	
@@ -25,19 +25,15 @@ package org.flyte.game
 			action.mapAction(Action.ACTIVATE,"activate",nothing,false,false)
 			action.setDefault(Action.STILL)
 			action.setAction(Action.STILL)
-		}
-		
-		private function onAdded(e:GameEvent):void
-		{
 			addLoopListener(onLoop)
 		}
+
 		
 		private function onLoop(e:GameEvent):void
 		{
 			if(Collision.hitTestShape(this,Character.current) && ! this.isCurrent)
 			{
 				isCurrent=true
-				
 				if(Checkpoint.current != null){
 					Checkpoint.current.dispatchEvent(new GameEvent(GameEvent.DEACTIVATE))
 				}

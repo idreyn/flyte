@@ -1,10 +1,10 @@
 ﻿package org.flyte.world{
 	import flash.geom.*;
-	import org.flyte.collision.*;
+	
 	import org.flyte.base.*;
-	import org.flyte.world.*;
+	import org.flyte.collision.*;
 	import org.flyte.events.*;
-	import org.flyte.motion.*
+	import org.flyte.motion.*;
 	public class Platform extends MotionTargetedGMC{
 		public var ceiling:Ceiling;
 		public var floor:Floor;
@@ -28,8 +28,14 @@
 			lastX=this.x;
 			lastY=this.y;
 			gameObjectsOnMe=new Array();
-			Standable.enum.push(this)
 			addLoopListener(onLoop);
+			addEventListener(GameEvent.ADDED,onAdded)
+		}
+		
+		private function onAdded(e:GameEvent):void
+		{
+			Standable.enum.push(this)
+
 		}
 		public function setBounce(val:Number,valX:Number=0):void {
 			floor.bounce=Math.abs(val);

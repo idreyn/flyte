@@ -1,17 +1,18 @@
 ﻿package org.flyte.enemy
 {
 	import org.flyte.base.*;
+	import org.flyte.character.*;
+	import org.flyte.collision.*;
 	import org.flyte.display.*;
 	import org.flyte.events.GameEvent;
-	import org.flyte.collision.*;
-	import org.flyte.character.*;
+	import org.flyte.item.Collectible;
 	public class Enemy extends AbstractEnemy
 	{
 		public static var attackingTotal:uint=0;
 		public static var MAX_ATTACK_CHARACTER:uint=3;
 		public var onCharacter:Boolean=false;
 		public var respawnAfterReset:Boolean=true;
-
+		public var dropOnDie:Collectible=null
 		private var r2c:Boolean=false;
 		private var lastVelX:Number;
 		protected var moving:Boolean=true;
@@ -36,9 +37,12 @@
 		}
 		private function onResetLevel(e:GameEvent):void
 		{
+			action.reset()
 			if (! respawnAfterReset&&dead)
 			{
 				stopListening();
+			}else{
+				dead=false
 			}
 			addEventListener(GameEvent.DETERMINE_RESTRICTION,onDetermineRestriction);
 		}
@@ -48,9 +52,11 @@
 		}
 		private function checkPosition(e:GameEvent):void
 		{
-			if (seesCharacter)
+			if (seesCharacter && !action.actionInProgress(Action.DIE))
 			{
 				faceDirection(this.x>Character.current.x?-1:1);
+			}else{
+				faceDirection(this.velocityX>0?1:-1)
 			}
 
 		}
@@ -71,6 +77,9 @@
 			}
 
 		}
+		
+		
+			
 
 
 	}

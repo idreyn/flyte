@@ -28,9 +28,15 @@
 		public function Terrain() {
 			collision=new CollisionDictionary();
 			enum.push(this);
-			Standable.enum.push(this)
+
 			addLoopListener(onLoop)
+			addEventListener(GameEvent.ADDED,onAdded)
 		}
+		
+		private function onAdded(e:GameEvent):void
+		{
+			Standable.enum.push(this)
+		}	
 		protected override function customReset():void{
 			collision.clear();
 		}

@@ -27,7 +27,6 @@
 		 * objects from outside the current ScrollWorld will not affect performance.
 		 * @see org.flyte.world.ScrollWorld
 		 */
-		public static var enum:Array=new Array();
 		protected var jumpHeight:Number=3;
 		private var MAX:Number=0.96;
 		private var MIN:Number=0.6;
@@ -35,13 +34,12 @@
 		public function FancyTerrain()
 		{
 			collision=new CollisionDictionary();
-			enum.push(this);
-			Standable.enum.push(this);
 			addEventListener(GameEvent.ADDED,onAdded)
 		}
 		
 		private function onAdded(e:GameEvent):void
 		{
+			Standable.enum.push(this)
 			addLoopListener(onLoop);
 		}
 		protected override function customReset():void

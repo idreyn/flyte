@@ -2,7 +2,7 @@
 {
 	import org.flyte.base.*
 	import org.flyte.events.*;
-	import org.flyte.character.*;
+	import org.flyte.character.Character
 	import org.flyte.utils.Lazy;
 	import flash.display.*;
 	import flash.filters.*
@@ -15,11 +15,12 @@
 		public function HUDHealthBar()
 		{
 			addEventListener(GameEvent.ADDED,onAdded);
+			Game._root.addEventListener(GameEvent.LOAD,onAdded)
 		}
 		
 		private function onAdded(e:GameEvent):void
 		{
-			world.character.addEventListener(GameEvent.HEALTH_LOST,onCharacterHit);
+			Character.current.addEventListener(GameEvent.HEALTH,onCharacterHit);
 		}
 		private function onCharacterHit(e:GameEvent):void
 		{
