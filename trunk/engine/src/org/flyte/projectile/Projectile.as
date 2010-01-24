@@ -1,15 +1,16 @@
 ﻿package org.flyte.projectile
 {
 	import com.coreyoneil.collision.*;
-	import org.flyte.projectile.*;
+	
+	import flash.display.*;
+	import flash.geom.*;
+	
 	import org.flyte.base.*;
-	import org.flyte.events.*;
 	import org.flyte.collision.*;
 	import org.flyte.display.*;
-	import org.flyte.world.*;
-	import flash.geom.*;
+	import org.flyte.events.*;
 	import org.flyte.utils.*;
-	import flash.display.*;
+	import org.flyte.world.*;
 	public class Projectile extends GameMovieClip
 	{
 		public static var FRIENDLY_FIRE:Boolean=false;
@@ -24,9 +25,12 @@
 		public var container:GameMovieClip;
 		public var mass:Number;
 		public var radius:Number;
+		public var damageRadius:Number=0
+		public var damage:Number=0
 		private var invalidate:Boolean=false;
 		private var bounceObject:GameMovieClip;
 		private var sensors:Sensors;
+		protected var _destroyed:Boolean=false
 		public function Projectile()
 		{
 			sensors=new Sensors(this);
@@ -79,7 +83,8 @@
 						} else
 						{
 							invalidate=true;
-							action.setAction(Action.DESTROY);
+							
+							destroyThis()
 						}
 
 						break;
@@ -184,5 +189,30 @@
 			        y:-distance*Math.cos(angle*(Math.PI/180))
 			    };
 		}
+		
+		
+		public function destroyThis():void
+		{
+			_destroyed=true
+			this.findBlastRadius()
+			this.action.setAction(Action.DESTROY)
+		}
+
+		
+		protected function findBlastRadius():void
+		{
+			if(damageRadius <= 0 || damage <= 0 ) return
+			for (var i=0; i<GameObject.enum.length; i++)
+			{
+				var t:GameObject=GameObject.enum[i];
+				if (Math.sqrt(Math.pow(this.x-t.x,2)+Math.pow(this.y-t.y,2))<damageRadius)
+				{
+					t.dispatchGameEvent(GameEvent.HIT,{sender:this,damage:this.damage,velocity:(this.x>t.x)?-5:5});
+				}
+			}
+	
+		}
 	}
+	
 }
+	

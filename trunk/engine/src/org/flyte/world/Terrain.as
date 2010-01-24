@@ -43,6 +43,8 @@
 		private function onLoop(e:GameEvent):void {
 			for(var i:uint=0; i<GameObject.enum.length; i++) {
 				var t:GameObject=GameObject.enum[i];
+				var trot:Number=t.rotation
+				t.rotation=
 				t.sensors.bottom.scaleX=0.96;
 				if (Collision.hitTestShape(t.sensors.bottom,this)) {
 					if (! collision.isCollisionAt(i,CollisionType.BOTTOM)) {
@@ -128,6 +130,7 @@
 						t.dispatchEvent(new GameEvent(GameEvent.END_COLLISION,{type:CollisionType.TOP,sender:this,rebound:this.rebound}));
 					}
 				}
+				t.rotation=trot
 
 			}
 		}

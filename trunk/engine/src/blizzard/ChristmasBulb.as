@@ -1,18 +1,20 @@
 ﻿package blizzard
 {
-	import org.flyte.projectile.*
-	import org.flyte.events.*
-	import org.flyte.character.*
-	import org.flyte.collision.*
-	import org.flyte.media.*
-	import org.flyte.base.*
-	import org.flyte.display.*
+	import org.flyte.base.*;
+	import org.flyte.character.*;
+	import org.flyte.collision.*;
+	import org.flyte.display.*;
+	import org.flyte.events.*;
+	import org.flyte.media.*;
+	import org.flyte.projectile.*;
 	
-	public class ChristmasBulb extends Bomb
+	public class ChristmasBulb extends Projectile
 	{
 		public function ChristmasBulb()
 		{
-			this.damage=100
+			this.damage=10
+			this.damageRadius=300
+			this.maxBounces=1
 			addLoopListener(onLoop)
 			addEventListener(GameEvent.COLLISION,onCollision)
 		}

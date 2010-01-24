@@ -53,9 +53,11 @@
 		 */
 		public var stageTest:Sprite;
 		public var _hud:HUD;
+		private var _toLoad:ScrollWorld
 		public static var key:KeyListener
 		private var displayed_world:ScrollWorld;
 		private var t:Timer;
+		private var ready:Boolean=false
 		private var m:Sprite;
 		protected var level:uint;
 		public function Game()
@@ -127,7 +129,15 @@
 		public function loadWorld(s:ScrollWorld,h:HUD=null):void
 		{
 			if(h != null) setHUD(h)
-			setWorld(s)
+			if(ready){
+				setWorld(s)
+			}
+		}
+		
+		private function loadPrev(e:GameEvent):void
+		{
+			trace("loadPrev")
+			loadWorld(_toLoad)
 		}
 		public function setHUD(h:HUD):void
 		{
@@ -196,7 +206,7 @@
 		}
 		public function onGameInit(e:GameEvent):void
 		{
-			
+			ready=true
 		}
 		private function onEnterFrame(e:Event):void
 		{

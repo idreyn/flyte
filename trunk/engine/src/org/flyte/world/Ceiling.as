@@ -17,6 +17,7 @@
 					if (! touching[i] && t.collisions.bottom ==0) {
 						touching[i]=true;
 						t.dispatchEvent(new GameEvent(GameEvent.COLLISION,{type:this.type,sender:this,rebound:this.rebound}));
+
 					}
 				} else {
 					if (touching[i]) {

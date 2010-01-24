@@ -119,7 +119,7 @@
 		public var jumpDamping:Number=0.8
 		public var jumpDampingHold:Number=0.83
 		public var pushPower:Number=1.5
-		protected var collisions:Object;
+		public var collisions:Object;
 		private var jump:Number=0;
 		private var _bounds:Rectangle
 		protected var lastX:Number=0;

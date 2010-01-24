@@ -38,7 +38,6 @@
 						t.dispatchEvent(new GameEvent(GameEvent.ENTER))
 						containsList.add(t)
 						collision.setCollisionAt(i,CollisionType.GENERAL)
-						trace("collection",containsList)
 					}
 				}else{
 					if(collision.isCollisionAt(i,CollisionType.GENERAL))
@@ -47,7 +46,6 @@
 						t.dispatchEvent(new GameEvent(GameEvent.EXIT))
 						containsList.remove(t)
 						collision.endCollisionAt(i,CollisionType.GENERAL)
-						trace("collection",containsList)
 					}
 				}
 			}
