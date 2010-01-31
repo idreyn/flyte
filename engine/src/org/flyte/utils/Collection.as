@@ -17,10 +17,8 @@
 		{
 			
 			var index:int=this.indexOf(i)
-			trace("add",index)
 			if(index == -1)
 			{
-				trace("push!")
 				this.push(i)
 				return true
 			}else{

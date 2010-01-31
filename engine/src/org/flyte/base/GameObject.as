@@ -15,8 +15,6 @@
 	 * The GameObject class represents any GameMovieClip that is subject to collisions and gravity.
 	 * Unless you plan on deviating from the classic elements of platformer gameplay (enemies, collectibles, hazards, etc),
 	 * there should be very little need to call GameObject directly.
-	 * 
-	 * GameObjects require these name/frame combos: "still","run","die","hit". If you create any more name/frame combos called "attack0","attack1", etc, they will be added to the list of attacks the GameObject randomly uses.
 	 * @author Ian Reynolds
 	 * @see org.flyte.base.GameMovieClip
 	 */
@@ -158,7 +156,6 @@
 		protected var dying:Boolean=false;
 		protected var healthBar:HealthBar;
 		protected var friction:uint=0;
-		protected var baseJumpHeight:uint=jumpHeight
 		private var hasAttackTarget:Boolean=false;
 		private var attackElapsed:uint=0;
 		private var invalidateAnimation:Boolean=false;
@@ -287,6 +284,7 @@
 			if (! action.actionInProgress(Action.DIE))
 			{
 				action.setAction(Action.DIE);
+				action.lock()
 		
 			}
 
@@ -350,7 +348,7 @@
 				{
 					health-=e.params.damage;
 					healthBar.setValue(health);
-					push(e.params.velocity*e.params.pushPower)
+					push(e.params.velocity)
 					
 					
 					
@@ -386,7 +384,6 @@
 			this.attacking=false;
 			this.hurting=false
 			this.tryDoDie=false;
-			this.jumpHeight=this.baseJumpHeight
 		}
 		protected function registerCollision(e:GameEvent):void
 		{
@@ -400,7 +397,7 @@
 					collisions.bottom++;
 					if (e.params.jumpHeight>0)
 					{
-						this.jumpHeight=Math.max(this.jumpHeight+e.params.jumpHeight,MIN_JUMP_HEIGHT);
+						this.jumpHeight=Math.max(e.params.jumpHeight,MIN_JUMP_HEIGHT);
 					}
 					this.velocityY=0;
 					this.bounce=e.params.bounce;
@@ -482,7 +479,11 @@
 			if ((movementDirection==1 && canMoveRight) || (movementDirection==-1 && canMoveLeft))
 			{
 
-				this.x+=(velocityX+pushVelocity)
+				if(moves)
+				{
+					this.x+=(velocityX+pushVelocity)
+				}
+					
 				this.y+=Math.abs((velocityX+pushVelocity)*Math.sin(radians(rotation)))
 
 			}
@@ -507,9 +508,6 @@
 				}
 			} else
 			{
-				if(this is Character && Character(this).stuckToTerrain){
-					return void;
-				}
 				if (falling)
 				{
 					this.y+=velocityY

@@ -155,13 +155,13 @@
 			dispatching=true
 
 		}
-		protected function keyUp(e:GameEvent):void {
+		private function keyUp(e:GameEvent):void {
 
 
 		}
-		protected function keyDown(e:GameEvent):void {
-				if(e.params.key == 192){
-					Game._root.pause();
+		private function keyDown(e:GameEvent):void {
+				if(e.params.key == KeyControls.PAUSE){
+					Game._root.togglePaused()
 				}
 
 		}

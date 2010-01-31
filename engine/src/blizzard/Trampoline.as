@@ -22,7 +22,7 @@
 		private function onAdded(e:GameEvent):void
 		{
 			action.mapAction(Action.STILL,"still",nothing)
-			action.mapAction(Action.ACTIVATE,"bounce",nothing)
+			action.mapAction(Action.ACTIVATE,"bounce_this",nothing)
 			action.setDefault(Action.STILL)
 			action.setAction(Action.STILL)
 			floor.addEventListener(GameEvent.ENTER_PLATFORM,onEnterPlatform)

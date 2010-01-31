@@ -8,11 +8,11 @@
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
 	
+	import org.flyte.zone.*
 	import org.flyte.character.*;
 	import org.flyte.events.GameEvent;
 	import org.flyte.game.*;
 	import org.flyte.hud.*;
-	import org.flyte.io.KeyListener;
 	import org.flyte.utils.*;
 	import org.flyte.world.ScrollWorld;
 
@@ -46,7 +46,7 @@
 		/**
 		 * Whether the game is paused.
 		 */
-		public var paused:Boolean=false;
+		private var _paused:Boolean=false;
 		/**
 		 * A sprite that masks the stage so other components of the game can determine whether they are onscreen.
 		public var stageTest:Sprite
@@ -81,13 +81,17 @@
 
 		}
 		
+		public function get paused():Boolean
+		{
+			return _paused
+		}
 		private function onAddedToStage(e:Event=null):void
 		{
 			drawMask()
 		}
 		private function onInitReset(e:GameEvent):void
 		{
-			paused=true;
+			_paused=true;
 			Tweener.addTween(stageTest,{alpha:1,time:1,onComplete:maskFadeIn_oC})
 			
 	
@@ -105,7 +109,7 @@
 		
 		private function maskFadeOut_oC():void
 		{
-			paused=false
+			_paused=false
 		}
 		
 		private function drawMask():Sprite
@@ -183,14 +187,13 @@
 		}
 		private function clearEnum():void
 		{
-
 			
 		}
 		private function setWorld(w:ScrollWorld,force:Boolean=true):void
 		{
 			if (w!=displayed_world || force)
 			{
-				paused=true;
+				_paused=true;
 				if(displayed_world != null){
 					displayed_world.dispatchEvent(new GameEvent(GameEvent.UNLOAD_WORLD));
 					removeChild(displayed_world);
@@ -217,7 +220,7 @@
 				addChild(stageTest)
 				displayed_world.dispatchEvent(new GameEvent(GameEvent.LOAD_WORLD));
 				dispatchEvent(new GameEvent(GameEvent.LOAD))
-				paused=false;
+				_paused=false;
 			}
 		}
 		
@@ -236,7 +239,7 @@
 		}
 		private function onEnterFrame(e:Event):void
 		{
-			if (! paused)
+			if (! _paused)
 			{
 				dispatchEvent(new GameEvent(GameEvent.LOOP));
 			}
@@ -245,7 +248,7 @@
 		 */
 		public function pause():void
 		{
-			paused=true;
+			_paused=true;
 			dispatchEvent(new GameEvent(GameEvent.PAUSE))
 		}
 		/**
@@ -253,8 +256,18 @@
 		 */
 		public function resume():void
 		{
-			paused=false;
+			_paused=false;
 			dispatchEvent(new GameEvent(GameEvent.RESUME))
 		}
+		
+		public function togglePaused():void
+		{
+			if(_paused){
+				resume()
+			}else{
+				pause()
+			}
+		}
+			
 	}
 }

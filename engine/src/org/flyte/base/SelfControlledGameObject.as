@@ -22,7 +22,10 @@
 		 */
 		public var visionRange:Number=300;
 		protected var restriction:RestrictionZone;
-		protected var restricted:Boolean=false;
+		/**
+		 * Whether the object is restricted by any RestrictionZone objects. 
+		 */
+		public var restricted:Boolean=false;
 		/**
 		 * Whether the object bothers to look before it leaps. If set to true, it will not
 		 * walk off a ledge.
@@ -53,14 +56,27 @@
 		{
 			for (var i:uint=0; i<RestrictionZone.enum.length; i++)
 			{
-				if (Collision.hitTestShape(this,RestrictionZone.enum[i]))
+				if (Collision.hitTestShape(this,RestrictionZone.enum[i]) && RestrictionZone.enum[i] is RestrictionZone)
 				{
 					restriction=RestrictionZone.enum[i];
+					restriction.addEventListener(GameEvent.EXIT,exitRestriction)
+					restricted=true
 					break;
 				}
 			}
 			//restricted=restriction!=null;
 			dispatchEvent(new GameEvent(GameEvent.DETERMINE_RESTRICTION));
+		}
+		
+		private function exitRestriction(e:GameEvent):void
+		{
+			if(restricted){
+				seesCharacter=false
+				faceDirection(velocityX>0?-1:1)
+				stopCheckingUntilSafe=true;
+				lastDistanceFromCharacter=Math.abs(Character.current.x-this.x);
+
+			}
 		}
 		private function onLoopE(e:GameEvent):void
 		{
@@ -99,10 +115,11 @@
 		 * @param i The direction to face. Use -1 for left, 1 for right.
 		 * 
 		 */
-		public function faceDirection(i:int):void
+		public function faceDirection(i:int,stop:Boolean=false):void
 		{
-			velocityX=i*speed;
-			scaleX=i*originalScaleX;
+			var s:Number=stop?0:1
+			velocityX=i*speed*s;
+			if(i != 0) scaleX=i*originalScaleX;
 		}
 
 		private function checkEdges():void

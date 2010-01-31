@@ -72,10 +72,11 @@
 			world.addEventListener(GameEvent.LOOP,onLoopE);
 		}
 		private function checkPosition(e:GameEvent):void
-		{
+		{ 
+			onCharacter=Collision.hitTestShape(this,Character.current)
 			if (seesCharacter && !action.actionInProgress(Action.DIE))
 			{
-				faceDirection(this.x>Character.current.x?-1:1);
+				faceDirection(this.x>Character.current.x?-1:1,onCharacter);
 			}else{
 				faceDirection(this.velocityX>0?1:-1)
 			}
@@ -83,8 +84,6 @@
 		}
 		private function onLoopE(e:GameEvent):void
 		{
-			onCharacter=Collision.hitTestShape(this,Character.current);
-			moves=! onCharacter;
 			action.DEFAULT=(Math.abs(velocityX)>0.5)?Action.RUN:Action.STILL;
 			if (onCharacter&&grace>30)
 			{
@@ -98,10 +97,6 @@
 			}
 
 		}
-		
-		
-			
-
 
 	}
 }

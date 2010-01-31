@@ -16,13 +16,13 @@
 				if (Collision.hitTestShape(this,t.sensors.top)) {
 					if (! touching[i] && t.collisions.bottom ==0) {
 						touching[i]=true;
-						t.dispatchEvent(new GameEvent(GameEvent.COLLISION,{type:this.type,sender:this,rebound:this.rebound}));
+						t.dispatchEvent(new GameEvent(GameEvent.COLLISION,{type:this.type,sender:this,rebound:parentPlatform.rebound}));
 
 					}
 				} else {
 					if (touching[i]) {
 						touching[i]=false;
-						t.dispatchEvent(new GameEvent(GameEvent.END_COLLISION,{type:this.type,sender:this,rebound:this.rebound}));
+						t.dispatchEvent(new GameEvent(GameEvent.END_COLLISION,{type:this.type,sender:this}));
 					}
 				}
 			}

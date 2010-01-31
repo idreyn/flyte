@@ -1,7 +1,7 @@
 ﻿package org.flyte.world
 {
 	import flash.geom.*;
-	
+	import org.flyte.world.*
 	import org.flyte.base.*;
 	import org.flyte.collision.*;
 	import org.flyte.events.*;
@@ -44,10 +44,10 @@
 					if (! touching[i])
 					{
 						touching[i]=true;
-						t.dispatchEvent(new GameEvent(GameEvent.JUMP,{bounce:this.bounce}));
+						t.dispatchEvent(new GameEvent(GameEvent.JUMP,{bounce:parentPlatform.bounce}));
 						dispatchEvent(new GameEvent(GameEvent.ENTER_PLATFORM,{index:i,object:t}))
 						parent.dispatchEvent(new GameEvent(GameEvent.ENTER_PLATFORM,{index:i,object:t}))
-						t.dispatchEvent(new GameEvent(GameEvent.COLLISION,{type:this.type,sender:this,rebound:this.bounce,bounce:this.bounce,bounceX:this.bounceX,jumpHeight:this.jumpHeight,friction:this.friction}));
+						t.dispatchEvent(new GameEvent(GameEvent.COLLISION,{type:this.type,sender:this,rebound:parentPlatform.bounce,bounce:parentPlatform.bounce,bounceX:this.bounceX,jumpHeight:parentPlatform.jumpHeight,friction:parentPlatform.friction}));
 					}
 				} else
 				{
@@ -55,7 +55,7 @@
 					{
 						touching[i]=false;
 						dispatchEvent(new GameEvent(GameEvent.LEAVE_PLATFORM,{index:i}));
-						t.dispatchEvent(new GameEvent(GameEvent.END_COLLISION,{type:this.type,sender:this,rebound:this.bounce,bounce:this.bounce,bounceX:this.bounceX,jumpHeight:this.jumpHeight}));
+						t.dispatchEvent(new GameEvent(GameEvent.END_COLLISION,{type:this.type,sender:this}));
 					}
 				}
 			}

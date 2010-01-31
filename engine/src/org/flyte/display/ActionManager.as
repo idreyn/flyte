@@ -63,6 +63,7 @@
 		public var g:GameMovieClip;
 		public var current:String
 		private var currentAction:Action;
+		private var locked:Boolean=false
 		private var currentActionFrame:String;
 		public var currentActionMovie:MovieClip;
 		/**
@@ -74,6 +75,8 @@
 			g=e;
 			frameLabels=getLabels();
 			g.addEventListener(GameEvent.ADDED,onAdded);
+		//	Game._root.addEventListener(GameEvent.PAUSE,onPause)
+		//	Game._root.addEventListener(GameEvent.RESUME,onResume)
 		}
 		private function getLabels():Array {
 			var a:Array=new Array();
@@ -174,6 +177,7 @@
 		 * @see #mapAction
 		 */
 		public function setAction(b:String):void {
+			if(locked) return
 			if (hasAction(b)) {
 				if (a[b].hasAnimation) {
 					if(currentAction != null) currentAction.active=false;
@@ -246,7 +250,36 @@
 				}
 			}
 		}
+		
+		/**
+		 * Locks the ActionManager to prevent any more actions from being called
+		 * until it is unlocked. 
+		 * 
+		 */
+		public function lock():void
+		{
+			locked=true
+		}
+		
+		/**
+		 * Unlocks the ActionManager to allow it to work again. 
+		 * 
+		 */
+		public function unlock():void
+		{
+			locked=false
+		}
 		protected function nothing():void {
+		}
+		
+		private function onPause(e:GameEvent):void
+		{
+			this.currentActionMovie.stop()
+		}
+		
+		private function onResume(e:GameEvent):void
+		{
+			this.currentActionMovie.play()
 		}
 
 

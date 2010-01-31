@@ -218,6 +218,7 @@
 			this.visible=true;
 		}
 		private function onResetLevel(e:GameEvent):void {
+				action.unlock();
 				action.resetKeys();
 				this.x=originX;
 				this.y=originY;

@@ -1,11 +1,12 @@
 ﻿package org.flyte.collision{
 	import org.flyte.base.*;
+	import org.flyte.motion.MotionTargetedGMC;
 	/**
 	 * The Standable class is an abstract base for anything that a GameObject might stand on or bounce off of.
 	 * @author Ian Reynolds
 	 * 
 	 */
-	public class Standable extends GameMovieClip{
+	public class Standable extends MotionTargetedGMC{
 		/**
 		 * An array of all the Terrain and Surface objects in the game.
 		 */

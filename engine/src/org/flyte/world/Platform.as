@@ -5,7 +5,7 @@
 	import org.flyte.collision.*;
 	import org.flyte.events.*;
 	import org.flyte.motion.*;
-	public class Platform extends MotionTargetedGMC{
+	public class Platform extends Standable{
 		public var ceiling:Ceiling;
 		public var floor:Floor;
 		public var leftWall:LeftWall;
@@ -15,7 +15,6 @@
 		public var gameObjectsOnMe:Array;
 		private var lastX:Number;
 		private var lastY:Number;
-		private var bounce:Number=0;
 		public static var enum:Array=new Array();
 		public static function sync(t:uint,p1:Platform,p2:Platform):void{
 			if(t>0){
@@ -34,18 +33,15 @@
 		
 		private function onAdded(e:GameEvent):void
 		{
-			Standable.enum.push(this)
 
 		}
 		public function setBounce(val:Number,valX:Number=0):void {
-			floor.bounce=Math.abs(val);
+			this.bounce=Math.abs(val);
 			floor.bounceX=valX;
 		}
-		public function setFriction(val:Number):void {
-			floor.friction=Math.abs(val);
-		}
+		
 		public function setJumpHeight(val:Number):void {
-			floor.jumpHeight=Math.abs(val);
+			this.jumpHeight=Math.abs(val);
 		}
 		private function createBoundaries(r:Rectangle):void {
 			ceiling=new Ceiling();
