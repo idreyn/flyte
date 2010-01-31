@@ -9,7 +9,6 @@
 	import org.flyte.game.*;
 	import org.flyte.io.*;
 	import org.flyte.objective.*;
-	
 	import org.flyte.utils.*;
 	import org.flyte.world.*;
 	/**
@@ -68,7 +67,7 @@
 		{
 			attackWaiting=true;
 		}
-		private function onDie():void
+		private function onDie(e:GameEvent):void
 		{
 			Game._root.dispatchEvent(new GameEvent(GameEvent.INIT_RESET));
 			GameVariables.lives--;
@@ -184,6 +183,7 @@
 				if (! attacking&&! attackWaiting)
 				{
 					attack();
+					this.velocityX*=0.2
 				}
 
 			}

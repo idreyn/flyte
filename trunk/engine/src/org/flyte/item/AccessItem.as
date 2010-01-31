@@ -7,7 +7,7 @@
 	 * @author Ian
 	 * 
 	 */
-	public dynamic class AccessItem extends Collectible implements IActivates {
+	public dynamic class AccessItem extends Collectible{
 		public var target:GameMovieClip;
 		public var hasTarget:Boolean=false;
 		public function AccessItem() {
@@ -28,10 +28,10 @@
 		public function findTarget():Boolean {
 			var n:String=this.name;
 			var b:Boolean=false;
-			for(var i:uint=0; i<ActivateTargetable.enum.length; i++) {
-				var t:*=ActivateTargetable.enum[i];
+			for(var i:uint=0; i<GameMovieClip.enum.length; i++) {
+				var t:*=GameMovieClip.enum[i];
 				var tn:String=t.name;
-				if (tn.slice(0,n.length)==n&&t!=this&&t is IActivatable) {
+				if (tn.slice(0,n.length)==n&&t!=this) {
 					target=t;
 					b=true;
 					break;
