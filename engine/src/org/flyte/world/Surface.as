@@ -2,6 +2,11 @@
 	import org.flyte.base.*;
 	import org.flyte.collision.*;
 	import org.flyte.events.GameEvent;
+	/**
+	 * @private 
+	 * @author Ian Reynolds
+	 * 
+	 */
 	public class Surface extends GameMovieClip{
 		protected var touching:Array;
 		protected var parentPlatform:Platform

@@ -53,7 +53,9 @@
 		private function onDie(e:GameEvent):void
 		{
 			if(dropOnDie != null){
-				parent.addChild(dropOnDie)
+				dropOnDie.x=this.x
+				dropOnDie.y=this.y
+				world.addChild(dropOnDie)
 			}
 		}
 		private function onResetLevel(e:GameEvent):void

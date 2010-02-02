@@ -15,8 +15,10 @@
 	 * @see org.flyte.world.Platform
 	 */
 	public class Terrain extends Standable {
-
-
+		/**
+		 * Whether the Terrain will check collisions. 
+		 */		
+		public var checkCollisions:Boolean=true
 		private var MAX:Number=0.96;
 		private  var MIN:Number=0.6;
 		protected var collision:CollisionDictionary;
@@ -29,12 +31,12 @@
 		
 		private function onAdded(e:GameEvent):void
 		{
-			Standable.enum.push(this)
 		}	
 		protected override function customReset():void{
 			collision.clear();
 		}
 		private function onLoop(e:GameEvent):void {
+			if(!checkCollisions || !visible) return
 			for(var i:uint=0; i<GameObject.enum.length; i++) {
 				var t:GameObject=GameObject.enum[i];
 				var trot:Number=t.rotation

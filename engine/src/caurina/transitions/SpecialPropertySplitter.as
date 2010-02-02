@@ -3,10 +3,10 @@ package caurina.transitions {
 	/**
 	 * SpecialPropertySplitter
 	 * A proxy setter for special properties
-	 *
+	 * @private
 	 * @author		Zeh Fernando
 	 * @version		1.0.0
-	 * @private
+	 * 
 	 */
 
 	public class SpecialPropertySplitter {

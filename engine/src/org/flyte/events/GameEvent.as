@@ -197,7 +197,7 @@
 		 */		
 		public static const ENEMY_DIE:String="gameEnemyDie"
 		/**
-		 * The params object holds parameters passed through the GameEvent constructor
+		 * The params object holds parameters passed through the GameEvent constructor.
 		*/
 		public var params:Object
 		public function GameEvent(type:String,params:Object=null){

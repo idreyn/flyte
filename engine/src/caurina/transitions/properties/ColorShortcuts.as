@@ -1,12 +1,7 @@
 package caurina.transitions.properties {
 
 	/**
-	 * properties.ColorShortcuts
-	 * List of default special color properties (normal and splitter properties) for the Tweener class
-	 * The function names are strange/inverted because it makes for easier debugging (alphabetic order). They're only for internal use (on this class) anyways.
-	 *
-	 * @author		Zeh Fernando, Nate Chatellier, Arthur Debert
-	 * @version		1.0.0
+	 * @private
 	 */
 
 	import flash.geom.ColorTransform;

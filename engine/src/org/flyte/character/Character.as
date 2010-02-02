@@ -102,7 +102,6 @@
 		private function onLoop(e:GameEvent):void
 		{
 
-				//this.action.currentActionMovie.scaleX=_md
 
 		}
 		
@@ -190,14 +189,14 @@
 
 			action.DEFAULT=(world.key.isDown(KeyControls.LEFT)||world.key.isDown(KeyControls.RIGHT))?Action.RUN:Action.STILL;
 
-			if (world.key.isDown(KeyControls.RIGHT))
+			if (world.key.isDown(KeyControls.RIGHT) && this.canMoveRight)
 			{
 				if (Math.abs(velocityX)<=maxVelocityX)
 				{
 					velocityX+=Math.cos(radians(rotation))*acceleration;
 				}
 			}
-			if (world.key.isDown(KeyControls.LEFT))
+			if (world.key.isDown(KeyControls.LEFT) && this.canMoveLeft)
 			{
 				if (Math.abs(velocityX)<=maxVelocityX)
 				{

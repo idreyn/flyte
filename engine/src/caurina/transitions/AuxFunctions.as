@@ -1,10 +1,6 @@
 package caurina.transitions {
 
 	/**
-	 * Generic, auxiliary functions
-	 *
-	 * @author		Zeh Fernando
-	 * @version		1.0.0
 	 * @private
 	 */
 

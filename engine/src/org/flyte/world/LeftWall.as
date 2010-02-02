@@ -2,6 +2,11 @@
 	import org.flyte.base.*;
 	import org.flyte.collision.*;
 	import org.flyte.events.*;
+	/**
+	 * @private
+	 * @author Ian Reynolds
+	 * 
+	 */
 	public class LeftWall extends Surface {
 		public function LeftWall() {
 			type=CollisionType.RIGHT;
@@ -16,6 +21,7 @@
 				if (Collision.hitTestShape(this,t.sensors.right)) {
 					if (! touching[i]) {
 						touching[i]=true;
+						this.parentPlatform.alpha=0
 						t.dispatchEvent(new GameEvent(GameEvent.COLLISION,{type:this.type,sender:this,rebound:parentPlatform.rebound}));
 					}
 				if(!Collision.hitTestShape(t,parent)) placeObject(t);

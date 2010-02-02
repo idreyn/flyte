@@ -1,9 +1,10 @@
 ﻿/**
  * Equations
  * Main equations for the Tweener class
- *
+ * @private
  * @author		Zeh Fernando, Nate Chatellier
  * @version		1.0.2
+ * 
  */
 
 /*

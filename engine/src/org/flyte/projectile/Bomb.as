@@ -8,10 +8,18 @@
 	import org.flyte.events.*;
 	import org.flyte.game.*;
 
+	/**
+	 * A Bomb is a Projectile that self-destructs after a number of seconds. 
+	 * @author Ian
+	 * 
+	 */
 	public class Bomb extends Projectile
 	{
 		
 		private var _timer:Timer;
+		/**
+		 * The amount of time to wait before destroying. 
+		 */
 		public var time:uint=3;
 		public function Bomb()
 		{

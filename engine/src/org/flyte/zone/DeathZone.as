@@ -3,6 +3,11 @@ package org.flyte.zone
 	import org.flyte.base.GameObject;
 	import org.flyte.events.*;
 	
+	/**
+	 * A DeathZone is an ominious-sounding Zone subclass that will kill all GameObjects that enter it. Bwa ha ha!
+	 * @author Ian Reynolds
+	 * @see org.flyte.base.GameObject
+	 */
 	public class DeathZone extends Zone
 	{
 		public function DeathZone()

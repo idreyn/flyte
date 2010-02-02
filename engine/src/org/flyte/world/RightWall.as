@@ -2,6 +2,11 @@
 	import org.flyte.base.*;
 	import org.flyte.collision.*;
 	import org.flyte.events.*;
+	/**
+	 * @private 
+	 * @author Ian Reynolds
+	 * 
+	 */
 	public class RightWall extends Surface{
 		public function RightWall() {
 			type=CollisionType.LEFT

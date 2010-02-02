@@ -1,29 +1,50 @@
 ﻿package org.flyte.media
 {
-	import org.flyte.base.*
-	import org.flyte.events.*
-	import org.flyte.display.*
-	import org.flyte.utils.*
-	import org.flyte.character.*
+	import flash.display.*;
+	import flash.events.*;
+	import flash.media.*;
 	
-	import flash.media.*
-	import flash.display.*
-	import flash.events.*
+	import org.flyte.base.*;
+	import org.flyte.character.*;
+	import org.flyte.display.*;
+	import org.flyte.events.*;
+	import org.flyte.utils.*;
 	
+	/**
+	 * The WorldSound class creates the illusion of dimensional sound (panning and volume) based on the position of a GameMovieClip.
+	 * So the farther away from the camera the specified GameMovieClip is, the quieter the sound will be and the more it will pan to the
+	 * left or right speaker. 
+	 * @author Ian
+	 * 
+	 */
 	public class WorldSound extends GameMovieClip
 	{
 		private var _parent:GameMovieClip
 		private var channel:SoundChannel
 		private var stransform:SoundTransform
 		private var sound:Sound
+		/**
+		 * Creates a new WorldSound object. 
+		 * @param s A Sound object to play through the WorldSound.
+		 * @param d The GameMovieClip the sound is "coming from".
+		 * 
+		 */
 		public function WorldSound(s:Sound,d:GameMovieClip){
 			
 			this._parent=d
 			this.sound=s
+			sound.addEventListener(Event.COMPLETE,onSoundComplete)
 			channel=sound.play()
 			_parent.addEventListener(Event.ENTER_FRAME,onLoop)
 			Game._root.addEventListener(GameEvent.PAUSE,onPause)
 			Game._root.addEventListener(GameEvent.RESUME,onResume)
+		}
+		
+		private function onSoundComplete(e:GameEvent):void
+		{
+			Game._root.removeEventListener(GameEvent.PAUSE,onPause)
+			Game._root.removeEventListener(GameEvent.RESUME,onResume)
+			_parent.removeEventListener(Event.ENTER_FRAME,onLoop)
 		}
 		
 		private function onLoop(e:Event):void

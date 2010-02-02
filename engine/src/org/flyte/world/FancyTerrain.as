@@ -9,24 +9,19 @@
 	import org.flyte.game.*;
 	import org.flyte.utils.*;
 	/**
-	 * A Terrain object represents something that GameObjects can walk on that may not
-	 * be perfectly flat. If you want to make a hill for your character to climb, you would
-	 * draw the hill and then convert it to a MovieClip symbol with a base class of Terrain.
-	 * The other type of object a GameObject can stand on (Standable) is a Platform, which generally serves
-	 * a completely different function, as it checks collisions against its square bounding box
-	 * and can be made to move or activate and deactivate periodically.
+	 * A FancyTerrain object is like a Terrain object but it rotates any GameObjects on it to match its slopes.
 	 * @author Ian Reynolds
+	 * @props Fancy Pants World!
 	 * @see org.flyte.base.GameObject
 	 * @see org.flyte.collision.Standable
-	 * @see org.flyte.world.Platform
+	 * @see org.flyte.world.Terrain
 	 */
 	public class FancyTerrain extends Standable
 	{
-		/**
-		 * An array of all Terrain objects in a flash movie. Populating this with
-		 * objects from outside the current ScrollWorld will not affect performance.
-		 * @see org.flyte.world.ScrollWorld
-		 */
+	   /**
+		 * Whether the FancyTerrain will check collisions. 
+		 */		
+		public var checkCollisions:Boolean=true
 		private var MAX:Number=0.96;
 		private var MIN:Number=0.6;
 		protected var collision:CollisionDictionary;
@@ -47,6 +42,7 @@
 		}
 		private function onLoop(e:GameEvent=null):void
 		{
+			if(!checkCollisions || !visible) return
 			var all:Array=GameObject.enum;
 			for (var i:uint=0; i<all.length; i++)
 			{

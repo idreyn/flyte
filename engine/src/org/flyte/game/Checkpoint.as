@@ -12,7 +12,7 @@
 	 * Checkpoints are simple in Flyte. Just put one on the stage and it will happen automatically.
 	 * 
 	 * Checkpoints require two frame/name combos for their ActionManager: "still" and "activate". 
-	 * @author Ian
+	 * @author Ian Reynolds
 	 * 
 	 */	
 	public class Checkpoint extends GameMovieClip

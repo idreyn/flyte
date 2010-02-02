@@ -1,12 +1,7 @@
 package caurina.transitions.properties {
 
 	/**
-	 * properties.FilterShortcuts
-	 * Special properties for the Tweener class to handle MovieClip filters
-	 * The function names are strange/inverted because it makes for easier debugging (alphabetic order). They're only for internal use (on this class) anyways.
-	 *
-	 * @author		Zeh Fernando, Nate Chatellier, Arthur Debert
-	 * @version		1.0.0
+	 * @private
 	 */
 
 	import flash.display.BitmapData;
