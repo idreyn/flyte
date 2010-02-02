@@ -261,13 +261,14 @@
 			return void;
 			for(var i:uint=0; i<removeList.length; i++) {
 				removeChild(removeList[i]);
+				removeList[i]=null
 				delete removeList[i];
 			}
 			removeList=new Array();
 		}
 		public function killChild(m:MovieClip):void{
 			removeChild(m);
-			m=null;
+			m=null
 		}
 		protected function degrees(r:Number):Number {
 			return r*(180/Math.PI);
