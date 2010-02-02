@@ -232,11 +232,11 @@
 		 */
 		public function loop(e:GameEvent):void {
 			if (active) {
-				if (currentActionMovie.currentFrame>=currentActionMovie.totalFrames||! g.contains(g.getChildByName(currentActionFrame))) {
+				if (currentActionMovie.currentFrame==currentActionMovie.totalFrames){//|| ! g.contains(g.getChildByName(currentActionFrame))) {
+					currentAction.actionOnComplete.call(g);
 					currentAction.active=false;
 					active=false;
 					dispatchEvent(new GameEvent(GameEvent.ACTION_COMPLETE,{action:currentAction.name}));
-					currentAction.actionOnComplete.call(g);
 					if (currentAction.resetOnComplete) {
 						currentAction.active=false
 						reset();

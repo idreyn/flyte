@@ -24,7 +24,7 @@
 	 * @see org.flyte.collision.Standable
 	 * @see org.flyte.display.ActionManager
 	 */
-	public class Projectile extends GameMovieClip
+	public class Projectile extends TransientObject
 	{
 		/**
 		 * The number of bounces the Projectile can take before it destructs.
@@ -99,6 +99,7 @@
 		}
 		private function looping(e:GameEvent):void
 		{
+			trace("I exist")
 			this.sensors.rotation=0-this.rotation;
 			if (invalidate)
 			{
@@ -209,7 +210,8 @@
 
 		private function destroyMe():void
 		{
-			MovieClip(parent).removeChild(this);
+			this.removeEventListener(GameEvent.LOOP,looping)
+			GameMovieClip(parent).killChild(this)
 		}
 		
 		/**
