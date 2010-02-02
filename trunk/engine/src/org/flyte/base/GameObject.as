@@ -70,7 +70,7 @@
 		 */
 		public var bounceX:Number=0;
 		/**
-		 * Whether or not the character is falling.
+		 * Whether or not the GameObject is falling.
 		 */
 		public var falling:Boolean=true;
 		/**
@@ -268,6 +268,7 @@
 		}
 		private function onDie():void
 		{
+			dispatchEvent(new GameEvent(GameEvent.DESTROY))
 			dispatchEvent(new GameEvent(GameEvent.DIE))
 			this.velocityX=0;
 			dead=true;
@@ -413,10 +414,12 @@
 				case CollisionType.RIGHT :
 					collisions.right++;
 					canMoveRight=false;
+					this.velocityX=0-e.params.rebound
 					break;
 				case CollisionType.LEFT :
 					collisions.left++;
 					canMoveLeft=false;
+					this.velocityX=e.params.rebound
 					break;
 			}
 		}

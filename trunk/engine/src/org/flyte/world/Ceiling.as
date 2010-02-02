@@ -2,6 +2,11 @@
 	import org.flyte.base.*;
 	import org.flyte.collision.*;
 	import org.flyte.events.*;
+	/**
+	 * @private
+	 * @author Ian Reynolds
+	 * 
+	 */
 	public class Ceiling extends Surface {
 		public function Ceiling() {
 			type=CollisionType.TOP;
@@ -27,7 +32,7 @@
 				}
 			}
 		}
-		public function placeObject(obj:GameObject):void {
+		private function placeObject(obj:GameObject):void {
 			while (Collision.hitTestShape(this,obj.sensors.top)) {
 				obj.y++;
 			}

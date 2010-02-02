@@ -27,29 +27,7 @@
 	public class ScrollWorld extends GameMovieClip {
 		/* These variables are all public because in addition to subclassing ScrollWorld to modify it, you'll be
 		able to mess with the gravity and such from the Timeline, the Flex document you're using, or whatever */
-		/**
-		 * The distance the game has scrolled on the x-axis.
-		 */
-		public var scrollX:Number;
-		/**
-		 * The distance the game has scrolled on the y-axis.
-		 */
-		public var scrollY:Number;
-		/**
-		 * The x-value of the left boundary at the edge of the world that the Character cannot move past.
-		 */
-		public var leftBoundary:Number;
-		/**
-		 * The x-value of the right boundary at the edge of the world that the Character cannot move past.
-		 */
-		public var rightBoundary:Number;
-		/**
-		 * The y-value of the top boundary at the edge of the world that the Character cannot move past.
-		 */
-		public var topBoundary:Number;
-		/**
-		 * The y-value of the bottom boundary at the edge of the world that the Character cannot move past.
-		 */
+
 		public var bottomBoundary:Number;
 		/**
 		 * A Rectangle object containing the boundaries of the world.
@@ -86,8 +64,20 @@
 		 */
 		public static var enum:Array=new Array();
 		private var dispatching:Boolean=false
+		/**
+		 * This is the source of GameObject.enum
+		 * @see org.flyte.base.GameObject#enum 
+		 */
 		public var gameObjectEnum:Array
+	 	/**
+		 * This is the source of Standable.enum
+		 * @see org.flyte.collision.Standable#enum 
+		 */
 		public var standableEnum:Array
+		/**
+		 * This is the source of GameMovieClip.enum
+		 * @see org.flyte.base.GameMovieClip#enum 
+		 */
 		public var gmcEnum:Array
 		public function ScrollWorld() {
 			gmcEnum=new Array()
@@ -145,7 +135,7 @@
 			}
 		}
 		/**
-		 * Resets the ScrollWorld.
+		 * Resets the ScrollWorld. This normally happens when the Character dies.
 		 */
 		public function reset():void {
 			dispatchEvent(new GameEvent(GameEvent.RESET_LEVEL));

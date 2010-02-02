@@ -6,9 +6,19 @@
 	import org.flyte.collision.*;
 	import org.flyte.character.*;
 	import org.flyte.display.*;
+	/**
+	 * An ActivatablePlatform is a Platform object that won't stat moving until the Character steps on it and its needsAccess property is set to false.
+	 * Its ActionManager requires two name/frame combos: "normal" and "active". Once "active" is activated the animation will play and stop at the last frame,
+	 * so this animation should indicate that the platform is turning on.
+	 * @author Ian
+	 * 
+	 */
 	public class ActivatablePlatform extends Platform
 	{
-		public var access:Boolean=false;
+		/**
+		 * Whether the ActivatablePlatform won't move when stepped on. Go figure. 
+		 */
+		public var needsAccess:Boolean=false;
 		public function ActivatablePlatform()
 		{
 			activated=false;
@@ -20,17 +30,16 @@
 			addLoopListener(loop);
 			action.mapAction(Action.ACTIVATE,"active",activateFinish,false,false);
 			action.mapAction(Action.NORMAL,"normal",nothing);
-			//action.setDefault(Action.NORMAL);
 			action.setAction("active");
 		}
 		private function loop(e:GameEvent):void
 		{
-			if (! access)
+			if (! needsAccess)
 			{
 				if (Collision.hitTestShape(this.floor,Character.current)&&! activated)
 				{
 					activated=true
-					activate();
+					activateMotion();
 					action.setAction(Action.ACTIVATE);
 				}
 			}

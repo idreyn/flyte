@@ -7,31 +7,45 @@
 	import org.flyte.character.*
 	import org.flyte.world.*
 	import org.flyte.display.*
-	public class Barrier extends Terrain implements IActivatable{
+	/**
+	 * A Barrier object is basically a piece of Terrain that will "open" and "close" to let things pass through it.
+	 * When it receives GameEvent.TARGET it will open. A Barrier's ActionManager requires three name/frame combos:
+	 * "still","open", and "close".
+	 * @author Ian Reynolds
+	 * 
+	 */
+	public class Barrier extends Terrain{
 		public function Barrier(){
 			resettable=false
-			ActivateTargetable.enum.push(this)
 			addActivateTargetableListeners();
 			action.mapAction(Action.OPEN,"open",hide)
 			action.mapAction(Action.STILL,"still",nothing)
 			action.mapAction(Action.CLOSE,"close",nothing,false,false)
 		}
 					
-		public function addActivateTargetableListeners():void{
+		private function addActivateTargetableListeners():void{
 			addEventListener(GameEvent.TARGET,target)
 		}
-		public function activate(e:GameEvent):void{
+		/**
+		 * Activates the Barrier.
+		 * 
+		 */
+		public function activate():void{
 			visible=true
 			action.setAction(Action.OPEN)
 		}
-		public function deactivate(e:GameEvent):void{
-			target(new GameEvent(GameEvent.TARGET));
-		}
-		public function target(e:GameEvent):void{
+		/**
+		 * Deactivates the Barrier.
+		 * 
+		 */
+		public function deactivate():void{
 			action.setAction(Action.OPEN)
+		}
+		private function target(e:GameEvent):void{
+			deactivate()
 
 		}
-		public function hide():void{
+		private function hide():void{
 			visible=false
 		}
 	}

@@ -7,14 +7,38 @@
 	import org.flyte.base.*;
 	import org.flyte.events.*;
 	
-	public class MotionTargetedGMC extends GameMovieClip implements IMotionTargetable{
+	/**
+	 * A MotionTargeted object moves back and forth between its MotionTarget and its original position.
+	 * To specify the MotionTarget to use, start the name of the MotionTarget object with the name of the MotionTargeted object.
+	 * For example to make a platform called "bounce" move to a target, name the MotionTarget "bounce_target" or something. 
+	 * @props to Tweener!
+	 * @author Ian Reynolds
+	 * @see org.flyte.motion.MotionTarget
+	 */
+	public class MotionTargeted extends GameMovieClip{
+		/**
+		 * Whether the MotionTargeted has a MotionTarget. 
+		 */
 		public var hasTarget:Boolean=false;
+		/**
+		 * Whether the MotionTargeted uses motion targeting. 
+		 */
 		public var usesTarget:Boolean=false;
+		/**
+		 * A reference to the object's MotionTarget. 
+		 */
 		public var motionTarget:MotionTarget;
+		/**
+		 * The length of time for the object to move to and from the target. 
+		 */
 		public var time:Number
+		/**
+		 * The type of tween to use. For best results, keep it at "linear".
+		 * @see http://hosted.zeh.com.br/tweener/docs/en-us/misc/transitions.html 
+		 */
 		public var tweenType:*="linear"
 		protected var activated:Boolean=true
-		public function MotionTargetedGMC() {
+		public function MotionTargeted() {
 			addEventListener(GameEvent.ADDED,onAdded);
 		}
 		private function onAdded(e:GameEvent):void {
@@ -27,12 +51,16 @@
 				hasTarget=false;
 			}
 		}
-		public function activate():void{
+		/**
+		 * Starts the motion of the MotionTargeted object. 
+		 * 
+		 */
+		public function activateMotion():void{
 			if(hasTarget){
 				startMotion()
 			}
 		}
-		public function startMotion():void {
+		private function startMotion():void {
 			velocityX=3
 			var m:MotionTarget=this.motionTarget
 			if(!time>0) time=Math.sqrt(Math.pow(m.x-this.x,2)+Math.pow(m.y-this.y,2))/velocityX/stage.frameRate;
@@ -48,6 +76,10 @@
 			Tweener.addTween(this,{x:motionTarget.x,y:motionTarget.y,time:this.time,onComplete:tweenComplete,transition:tweenType})
 		}
 		
+		/**
+		 * Stops the motion of the MotionTargeted object. 
+		 * 
+		 */
 		public function stopMotion():void
 		{
 			Tweener.removeTweens(this)
@@ -56,6 +88,11 @@
 			
 
 			
+		/**
+		 * Forces the MotionTargeted to look for a MotionTargeted again. 
+		 * @return Whether one has been found.
+		 * 
+		 */
 		public function findMotionTarget():Boolean {
 			var n:String=this.name;
 			var c:Boolean=true;

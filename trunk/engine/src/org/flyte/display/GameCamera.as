@@ -36,6 +36,14 @@
 		 * Be warned that too low a value will stop collisions from occuring properly, while a large value will slow things down. 
 		 */		
 		public var distance:Number=1
+		/**
+		 * Whether the Camera will track its target on the x-axis. 
+		 */
+		public var trackX:Boolean=true
+		/**
+		 * Whether the Camera will track its target on the y-axis. 
+		 */
+		public var trackY:Boolean=true
 		public function GameCamera() {
 			addEventListener(GameEvent.ADDED,onAdded)
 		}
@@ -67,8 +75,8 @@
 		private function onLoop(e:GameEvent):void {
 			try {
 				if (! active) {
-					world.x-=((_target.x+(world.x/distance)-CAMERA_OFFSET_X)*easeX)
-					world.y-=((_target.y+(world.y/distance)-CAMERA_OFFSET_Y)*easeY)
+					if(trackX) world.x-=((_target.x+(world.x/distance)-CAMERA_OFFSET_X)*easeX)
+					if(trackY) world.y-=((_target.y+(world.y/distance)-CAMERA_OFFSET_Y)*easeY)
 					world.scaleX=world.scaleY=distance
 				}
 			} catch (e:ReferenceError) {

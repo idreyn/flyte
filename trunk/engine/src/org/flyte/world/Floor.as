@@ -5,6 +5,11 @@
 	import org.flyte.base.*;
 	import org.flyte.collision.*;
 	import org.flyte.events.*;
+	/**
+	 * @private 
+	 * @author Ian Reynolds
+	 * 
+	 */
 	public class Floor extends Surface
 	{
 		public var bounceX:Number;

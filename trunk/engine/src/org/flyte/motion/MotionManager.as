@@ -9,6 +9,11 @@
 	import org.flyte.events.GameEvent;
 	;
 	
+	/**
+	 * A highly experimental class that you should ignore completely. But it will be awesome when it's done. 
+	 * @author Ian Reynolds
+	 * 
+	 */
 	public class MotionManager extends EventDispatcher
 	{
 		private var _has:Boolean=false

@@ -1,9 +1,5 @@
 ﻿/**
- * Tweener
- * Transition controller for movieclips, sounds, textfields and other objects
- *
- * @author		Zeh Fernando, Nate Chatellier, Arthur Debert, Francis Turmel
- * @version		1.33.74
+ * @private
  */
 
 /*
