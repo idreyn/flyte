@@ -99,7 +99,6 @@
 		}
 		private function looping(e:GameEvent):void
 		{
-			trace("I exist")
 			this.sensors.rotation=0-this.rotation;
 			if (invalidate)
 			{
